@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			elementFormDefault="qualified"
+			targetNamespace="http://osbcorp.vtr.cl/CLI/EMP/ValidarCedula" 
+			xmlns:tns      ="http://osbcorp.vtr.cl/CLI/EMP/ValidarCedula" >
+    
+    
+    <xsd:complexType name="reqValidarEstadoCedulaRequestType">
+    
+        	<xsd:sequence>
+    		<xsd:element name="rut" minOccurs="1" maxOccurs="1">
+    			<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="10" />
+						<xsd:minLength value="1" />
+					</xsd:restriction>
+				</xsd:simpleType>
+         	</xsd:element>  
+            <xsd:element name="serie" minOccurs="1" type="xsd:string"/>   			
+    	</xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

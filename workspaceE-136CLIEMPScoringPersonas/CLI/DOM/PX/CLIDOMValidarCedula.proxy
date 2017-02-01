@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con="http://www.bea.com/wli/sb/typesystem/config" xmlns:con1="http://www.bea.com/wli/sb/pipeline/config" xmlns:con2="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con3="http://www.bea.com/wli/sb/stages/config">
+  <ser:coreEntry isProxy="true" isEnabled="true" isAutoPublish="false" isTracingEnabled="false">
+    <ser:binding type="Mixed" xsi:type="con:MixedBindingType" xmlns:con="http://www.bea.com/wli/sb/services/bindings/config">
+      <con:request type="XML">
+        <con4:schema ref="CLI/DOM/WS/CLIDOMValidarCedulaRequest" element="reqValidarEstadoCedula" xmlns:con4="http://www.bea.com/wli/sb/typesystem/config"/>
+      </con:request>
+      <con:response type="XML">
+        <con4:schema ref="CLI/DOM/WS/CLIDOMValidarCedulaResponse" element="respValidarEstadoCedula" xmlns:con4="http://www.bea.com/wli/sb/typesystem/config"/>
+      </con:response>
+    </ser:binding>
+    <ser:monitoring isEnabled="false">
+      <ser:aggregationInterval>10</ser:aggregationInterval>
+      <ser:pipelineMonitoringLevel>Pipeline</ser:pipelineMonitoringLevel>
+    </ser:monitoring>
+    <ser:reporting>true</ser:reporting>
+    <ser:logging isEnabled="true">
+      <ser:logLevel>debug</ser:logLevel>
+    </ser:logging>
+    <ser:sla-alerting isEnabled="true">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:sla-alerting>
+    <ser:pipeline-alerting isEnabled="true">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:pipeline-alerting>
+  </ser:coreEntry>
+  <ser:endpointConfig>
+    <tran:provider-id>local</tran:provider-id>
+    <tran:inbound>true</tran:inbound>
+    <tran:inbound-properties/>
+    <tran:all-headers>true</tran:all-headers>
+  </ser:endpointConfig>
+  <ser:router errorHandler="_onErrorHandler-6650554036456933212-20bdc56f.14fcca6c319.-7f04">
+    <con1:pipeline type="request" name="PipelinePairNode1_request">
+      <con1:stage name="inicio">
+        <con1:context/>
+        <con1:actions>
+          <con2:assign varName="fechaInicio">
+            <con3:id>_ActionId-6650554036456933212-20bdc56f.14fcca6c319.-7fa0</con3:id>
+            <con2:expr>
+              <con3:xqueryText>fn:current-dateTime()</con3:xqueryText>
+            </con2:expr>
+          </con2:assign>
+        </con1:actions>
+      </con1:stage>
+      <con1:stage name="validateIN" errorHandler="_onErrorHandler-7151160366198449180-43d42cde.15309eee532.-7bea">
+        <con1:context>
+          <con3:varNsDecl namespace="http://osbcorp.vtr.cl/CLI/DOM/ValidarCedula" prefix="val"/>
+        </con1:context>
+        <con1:actions>
+          <con2:validate>
+            <con3:id>_ActionId-6650554036456933212-20bdc56f.14fcca6c319.-7f8c</con3:id>
+            <con2:schema ref="CLI/DOM/WS/CLIDOMValidarCedulaRequest"/>
+            <con2:schemaElement xmlns:val="http://osbcorp.vtr.cl/CLI/DOM/ValidarCedula">val:reqValidarEstadoCedula</con2:schemaElement>
+            <con2:varName>body</con2:varName>
+            <con2:location>
+              <con3:xpathText>./val:reqValidarEstadoCedula</con3:xpathText>
+            </con2:location>
+          </con2:validate>
+        </con1:actions>
+      </con1:stage>
+      <con1:stage name="CondiciónEmpresa">
+        <con1:comment>requerimiento Solicitado por JP, a través del negocio. 
+
+Es discriminar los Ruts empresa por rango, es decir si se ingresa un Rut y cae dentro del rango definido como empresa el servicio retornará validado (sin hacer ninguna validación real).
+ 
+La estructura de salida para este caso será la siguiente:
+·         Estado                                  : V  (valido)
+
+·         Razón                                   : Documento Vigente
+
+·         Fecha Vencimiento       : 2050-12-31
+
+ 
+La estimación de tiempo de construcción y certificación de la solución es de 5 días.
+ 
+PRE-REQUISITO
+Definición por parte del negocio del rango para ruts empresa (ej: Rut >= 50.000.000)
+ 
+Quedamos a la espera</con1:comment>
+        <con1:context>
+          <con3:varNsDecl namespace="http://osbcorp.vtr.cl/CLI/DOM/ValidarCedula" prefix="val"/>
+        </con1:context>
+        <con1:actions>
+          <con2:assign varName="rut">
+            <con3:id>_ActionId-4085318161745480786--a726412.1566af1c5a6.-7fba</con3:id>
+            <con2:expr>
+              <con3:xqueryText>fn:substring-before(data($body/val:reqValidarEstadoCedula/val:rut),"-")</con3:xqueryText>
+            </con2:expr>
+          </con2:assign>
+          <con2:assign varName="digitoVerificador">
+            <con3:id>_ActionId-4085318161745480786--a726412.1566af1c5a6.-7fa2</con3:id>
+            <con2:expr>
+              <con3:xqueryText>fn:substring-after(data($body/val:reqValidarEstadoCedula/val:rut),"-")</con3:xqueryText>
+            </con2:expr>
+          </con2:assign>
+          <con2:ifThenElse>
+            <con3:id>_ActionId-4085318161745480786--a726412.1566af1c5a6.-7fe1</con3:id>
+            <con2:case>
+              <con2:condition>
+                <con3:xqueryText>xs:integer($rut)>=0</con3:xqueryText>
+              </con2:condition>
+              <con2:actions>
+                <con2:assign varName="outDOM">
+                  <con3:id>_ActionId-2911567570357174423-2f401057.1566bda21b3.-7e71</con3:id>
+                  <con2:expr>
+                    <con3:xqueryTransform>
+                      <con3:resource ref="CLI/DOM/TLS/CLIDOMasignacionVariables_CLIDOMsalidaRutEmpresaOUT"/>
+                      <con3:param name="razon">
+                        <con3:path>"DOCUMENTO VIGENTE"</con3:path>
+                      </con3:param>
+                      <con3:param name="estado">
+                        <con3:path>"V"</con3:path>
+                      </con3:param>
+                      <con3:param name="fecha">
+                        <con3:path>"2050-12-31"</con3:path>
+                      </con3:param>
+                    </con3:xqueryTransform>
+                  </con2:expr>
+                </con2:assign>
+                <con2:replace contents-only="true" varName="body">
+                  <con3:id>_ActionId-2911567570357174423-2f401057.1566bda21b3.-7e13</con3:id>
+                  <con2:location>
+                    <con3:xpathText>.</con3:xpathText>
+                  </con2:location>
+                  <con2:expr>
+                    <con3:xqueryTransform>
+                      <con3:resource ref="CLI/DOM/TLS/CLIDOMasignacionVariables_CLIDOMsalidaRutEmpresaOUT"/>
+                      <con3:param name="razon">
+                        <con3:path>"DOCUMENTO VIGENTE"</con3:path>
+                      </con3:param>
+                      <con3:param name="estado">
+                        <con3:path>"V"</con3:path>
+                      </con3:param>
+                      <con3:param name="fecha">
+                        <con3:path>"2050-12-31"</con3:path>
+                      </con3:param>
+                    </con3:xqueryTransform>
+                  </con2:expr>
+                </con2:replace>
+                <con3:reply>
+                  <con3:id>_ActionId-2911567570357174423-2f401057.1566bda21b3.-7efa</con3:id>
+                </con3:reply>
+              </con2:actions>
+            </con2:case>
+            <con2:default/>
+          </con2:ifThenElse>
+        </con1:actions>
+      </con1:stage>
+      <con1:stage name="inputBS">
+        <con1:context>
+          <con3:varNsDecl namespace="http://osbcorp.vtr.cl/CLI/DOM/ValidarCedula" prefix="val"/>
+        </con1:context>
+        <con1:actions>
+          <con2:assign varName="inBS">
+            <con3:id>_ActionId-6650554036456933212-20bdc56f.14fcca6c319.-7f7a</con3:id>
+            <con2:expr>
+              <con3:xqueryTransform>
+                <con3:resource ref="CLI/DOM/TLS/XQ_CLIDOMValidarCedula_to_CLIATMValidacionCedulaIdentidad"/>
+                <con3:param name="reqValidarEstadoCedula1">
+                  <con3:path>$body/val:reqValidarEstadoCedula</con3:path>
+                </con3:param>
+              </con3:xqueryTransform>
+            </con2:expr>
+          </con2:assign>
+        </con1:actions>
+      </con1:stage>
+      <con1:stage name="call_ATM">
+        <con1:context/>
+        <con1:actions>
+          <con2:wsCallout>
+            <con3:id>_ActionId-6650554036456933212-20bdc56f.14fcca6c319.-7f5c</con3:id>
+            <con2:service xsi:type="ref:BusinessServiceRef" ref="CLI/ATM/BS/CLIATMValidacionCedulaIdentidad" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+            <con2:operation>validarClienteExterno</con2:operation>
+            <con2:request>
+              <con2:body>$inBS</con2:body>
+            </con2:request>
+            <con2:response>
+              <con2:body>outBS</con2:body>
+            </con2:response>
+            <con2:requestTransform/>
+            <con2:responseTransform/>
+          </con2:wsCallout>
+        </con1:actions>
+      </con1:stage>
+    </con1:pipeline>
+    <con1:pipeline type="response" name="PipelinePairNode1_response">
+      <con1:stage name="outputDOM">
+        <con1:context/>
+        <con1:actions>
+          <con2:assign varName="bodySalida">
+            <con3:id>_ActionId-6650554036456933212-20bdc56f.14fcca6c319.-7f49</con3:id>
+            <con2:expr>
+              <con3:xqueryTransform>
+                <con3:resource ref="CLI/DOM/TLS/XQ_CLIATMValidacionCedulaIdentidad_to_CLIDOMValidarCedula"/>
+                <con3:param name="validarClienteExternoResponse1">
+                  <con3:path>$outBS</con3:path>
+                </con3:param>
+              </con3:xqueryTransform>
+            </con2:expr>
+          </con2:assign>
+          <con2:replace varName="body" contents-only="true">
+            <con3:id>_ActionId-6650554036456933212-20bdc56f.14fcca6c319.-7f36</con3:id>
+            <con2:expr>
+              <con3:xqueryText>$bodySalida</con3:xqueryText>
+            </con2:expr>
+          </con2:replace>
+        </con1:actions>
+      </con1:stage>
+      <con1:stage name="validateOUT">
+        <con1:context>
+          <con3:varNsDecl namespace="http://osbcorp.vtr.cl/CLI/DOM/ValidarCedula" prefix="val"/>
+        </con1:context>
+        <con1:actions>
+          <con2:validate>
+            <con3:id>_ActionId-6650554036456933212-20bdc56f.14fcca6c319.-7f20</con3:id>
+            <con2:schema ref="CLI/DOM/WS/CLIDOMValidarCedulaResponse"/>
+            <con2:schemaElement xmlns:val="http://osbcorp.vtr.cl/CLI/DOM/ValidarCedula">val:respValidarEstadoCedula</con2:schemaElement>
+            <con2:varName>body</con2:varName>
+            <con2:location>
+              <con3:xpathText>./val:respValidarEstadoCedula</con3:xpathText>
+            </con2:location>
+          </con2:validate>
+        </con1:actions>
+      </con1:stage>
+    </con1:pipeline>
+    <con1:pipeline type="error" name="_onErrorHandler-6650554036456933212-20bdc56f.14fcca6c319.-7f04">
+      <con1:stage name="stage1">
+        <con1:context>
+          <con3:userNsDecl namespace="http://www.bea.com/wli/sb/stages/transform/config" prefix="con1"/>
+          <con3:varNsDecl namespace="http://osbcorp.vtr.cl/CLI/DOM/ValidarCedula" prefix="val"/>
+          <con3:varNsDecl namespace="http://osbcorp.vtr.cl/GLOBAL/EMP/ResultadoEjecucion" prefix="res"/>
+        </con1:context>
+        <con1:actions>
+          <con2:ifThenElse>
+            <con3:id>_ActionId-6650554036456933212-20bdc56f.14fcca6c319.-7ee4</con3:id>
+            <con2:case>
+              <con2:condition>
+                <con3:xqueryText>$fault/ctx:errorCode = "BEA-382500"</con3:xqueryText>
+              </con2:condition>
+              <con2:actions>
+                <con2:replace contents-only="true" varName="body">
+                  <con3:id>_ActionId-6650554036456933212-20bdc56f.14fcca6c319.-7e7f</con3:id>
+                  <con2:expr>
+                    <con3:xqueryText><![CDATA[<val:respValidarEstadoCedula>
+	<val:ResultadoEjecucion>
+		<res:ejecucionExitosa>{fn:false()}</res:ejecucionExitosa>
+		<res:codigoError>NEG-204</res:codigoError>
+		<res:mensaje>{data($fault/ctx:details/con1:ReceivedFaultDetail/con1:detail/ctx:fault/ctx:details/con1:ReceivedFaultDetail/con1:faultstring/text())}</res:mensaje>
+	</val:ResultadoEjecucion>
+</val:respValidarEstadoCedula>]]></con3:xqueryText>
+                  </con2:expr>
+                </con2:replace>
+              </con2:actions>
+            </con2:case>
+            <con2:case>
+              <con2:condition>
+                <con3:xqueryText>$fault/ctx:errorCode = "BEA-382505"</con3:xqueryText>
+              </con2:condition>
+              <con2:actions>
+                <con2:replace varName="body" contents-only="true">
+                  <con3:id>_ActionId-6650554036456933212-20bdc56f.14fcca6c319.-7e2f</con3:id>
+                  <con2:expr>
+                    <con3:xqueryText><![CDATA[<val:respValidarEstadoCedula>
+	<val:ResultadoEjecucion>
+		<res:ejecucionExitosa>{fn:false()}</res:ejecucionExitosa>
+		<res:codigoError>{fn:substring(data($fault/ctx:errorCode),1, 10)}</res:codigoError>
+		<res:mensaje>Error en la validacion del mensaje</res:mensaje>
+	</val:ResultadoEjecucion>
+</val:respValidarEstadoCedula>]]></con3:xqueryText>
+                  </con2:expr>
+                </con2:replace>
+              </con2:actions>
+            </con2:case>
+            <con2:default>
+              <con2:replace contents-only="true" varName="body">
+                <con3:id>_ActionId-6650554036456933212-20bdc56f.14fcca6c319.-7e0f</con3:id>
+                <con2:expr>
+                  <con3:xqueryText><![CDATA[<val:respValidarEstadoCedula>
+	<val:ResultadoEjecucion>
+		<res:ejecucionExitosa>{fn:false()}</res:ejecucionExitosa>
+		<res:codigoError>{$fault/ctx:errorCode/text()}</res:codigoError>
+		<res:mensaje>{$fault/ctx:reason}</res:mensaje>
+	</val:ResultadoEjecucion>
+</val:respValidarEstadoCedula>]]></con3:xqueryText>
+                </con2:expr>
+              </con2:replace>
+            </con2:default>
+          </con2:ifThenElse>
+          <con2:validate>
+            <con3:id>_ActionId-7151160366198449180-43d42cde.15309eee532.-7c03</con3:id>
+            <con2:schema ref="CLI/DOM/WS/CLIDOMValidarCedulaResponse"/>
+            <con2:schemaElement xmlns:val="http://osbcorp.vtr.cl/CLI/DOM/ValidarCedula">val:respValidarEstadoCedula</con2:schemaElement>
+            <con2:varName>body</con2:varName>
+            <con2:location>
+              <con3:xpathText>./val:respValidarEstadoCedula</con3:xpathText>
+            </con2:location>
+          </con2:validate>
+          <con3:reply>
+            <con3:id>_ActionId-6650554036456933212-20bdc56f.14fcca6c319.-7e2d</con3:id>
+          </con3:reply>
+        </con1:actions>
+      </con1:stage>
+    </con1:pipeline>
+    <con1:pipeline type="error" name="_onErrorHandler-7151160366198449180-43d42cde.15309eee532.-7bea">
+      <con1:stage name="stage1">
+        <con1:context/>
+        <con1:actions>
+          <con2:Error>
+            <con3:id>_ActionId-7151160366198449180-43d42cde.15309eee532.-7b7c</con3:id>
+            <con2:errCode>NEG-203</con2:errCode>
+            <con2:message>Error al validar datos de entrada en el servicio - DOM</con2:message>
+          </con2:Error>
+        </con1:actions>
+      </con1:stage>
+    </con1:pipeline>
+    <con1:flow>
+      <con1:pipeline-node name="PipelinePairNode1">
+        <con1:request>PipelinePairNode1_request</con1:request>
+        <con1:response>PipelinePairNode1_response</con1:response>
+      </con1:pipeline-node>
+    </con1:flow>
+  </ser:router>
+</xml-fragment>

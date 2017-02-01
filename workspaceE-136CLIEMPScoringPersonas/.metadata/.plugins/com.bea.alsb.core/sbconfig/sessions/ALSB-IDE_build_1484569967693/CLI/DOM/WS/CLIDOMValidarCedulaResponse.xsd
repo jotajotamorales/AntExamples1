@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:schemaEntry xmlns:con="http://www.bea.com/wli/sb/resources/config">
+    <con:schema><![CDATA[<xsd:schema elementFormDefault="qualified" targetNamespace="http://osbcorp.vtr.cl/CLI/DOM/ValidarCedula" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://osbcorp.vtr.cl/CLI/DOM/ValidarCedula" xmlns:ef="http://osbcorp.vtr.cl/GLOBAL/EMP/ResultadoEjecucion">
+	
+	<xsd:import namespace="http://osbcorp.vtr.cl/GLOBAL/EMP/ResultadoEjecucion" schemaLocation="../../../GLOBAL/EMP/WS/ResultadoEjecucion.xsd"/>
+ 
+ 	
+ 	<xsd:element name="respValidarEstadoCedula" type="tns:ValidarEstadoCedulaResponseType"/>
+ 	
+    <xsd:complexType name="ValidarEstadoCedulaResponseType">
+    	<xsd:sequence>
+    		<xsd:element name="EstadoCedula" type="tns:EstadoCedulaType" minOccurs="0"/>
+    		<xsd:element name="ResultadoEjecucion" type="ef:ResultadoEjecucionType" minOccurs="1" maxOccurs="1"/>
+    	</xsd:sequence>
+    </xsd:complexType>
+         
+      <xsd:complexType name="EstadoCedulaType">
+        <xsd:sequence>
+          <xsd:element name="estado" minOccurs="0" type="xsd:string"/>
+          <xsd:element name="razon" minOccurs="0" type="xsd:string"/>
+          <xsd:element name="fechaVencimiento" minOccurs="0" type="xsd:date" nillable="true"/>
+        </xsd:sequence>
+      </xsd:complexType>     
+             
+     
+
+</xsd:schema>]]></con:schema>
+    <con:dependencies>
+        <con:import namespace="http://osbcorp.vtr.cl/GLOBAL/EMP/ResultadoEjecucion" schemaLocation="../../../GLOBAL/EMP/WS/ResultadoEjecucion.xsd" ref="GLOBAL/EMP/WS/ResultadoEjecucion"/>
+    </con:dependencies>
+    <con:targetNamespace>http://osbcorp.vtr.cl/CLI/DOM/ValidarCedula</con:targetNamespace>
+</con:schemaEntry>

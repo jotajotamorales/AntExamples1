@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is Oracle JAX-WS 2.1.5. --><xs:schema xmlns:tns="http://osb.vtr.cl/CLI/ATM/ConsultarScoringInterno" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://osb.vtr.cl/CLI/ATM/ConsultarScoringInterno">
+
+<xs:element name="ConsultarScoringInternoRequest" type="tns:consultarScoringInternoRequest"/>
+
+<xs:element name="ConsultarScoringInternoResponse" type="tns:consultarScoringInternoResponse"/>
+
+<xs:element name="getScoringInternoPersonas" type="tns:getScoringInternoPersonas"/>
+
+<xs:element name="getScoringInternoPersonasResponse" type="tns:getScoringInternoPersonasResponse"/>
+
+<xs:complexType name="getScoringInternoPersonas">
+<xs:sequence>
+<xs:element name="srvConsultaScoringInternoRequest" type="tns:consultarScoringInternoRequest" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="consultarScoringInternoRequest">
+<xs:sequence>
+<xs:element name="rut_cliente" type="xs:string"/>
+<xs:element name="tipo_producto" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getScoringInternoPersonasResponse">
+<xs:sequence>
+<xs:element name="srvConsultaScoringInterno" type="tns:consultarScoringInternoResponse" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="consultarScoringInternoResponse">
+<xs:sequence>
+<xs:element name="scoringInterno" type="xs:int"/>
+<xs:element name="ResultadoEjecucion" type="tns:ResultadoEjecucion"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="ResultadoEjecucion">
+<xs:sequence>
+<xs:element name="EjecucionExitosa" type="xs:boolean"/>
+<xs:element name="CodigoError" type="xs:string" minOccurs="0"/>
+<xs:element name="mensaje" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:wsdlEntry xmlns:con="http://www.bea.com/wli/sb/resources/config">
+    <con:wsdl><![CDATA[<wsdl:definitions name="scoringPersonas" targetNamespace="http://osbcorp.vtr.cl/CLI/EMP/scoringPersonas" xmlns:tns="http://osbcorp.vtr.cl/CLI/EMP/scoringPersonas" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:obdtrq="http://osbcorp.vtr.cl/CLI/EMP/scoringPersonasReq" xmlns:obdtrp="http://osbcorp.vtr.cl/CLI/EMP/scoringPersonasResp" xmlns:hreq="http://osbcorp.vtr.cl/GLOBAL/EMP/HeaderRequest" xmlns:hres="http://osbcorp.vtr.cl/GLOBAL/EMP/HeaderResponse">
+
+ 	<wsdl:types>
+		<xs:schema targetNamespace="http://osbcorp.vtr.cl/CLI/EMP/scoringPersonas" elementFormDefault="qualified">
+
+			<xs:import namespace="http://osbcorp.vtr.cl/CLI/EMP/scoringPersonasReq" schemaLocation="CLIEMPScoringPersonaRequest.xsd"/>
+			<xs:import namespace="http://osbcorp.vtr.cl/CLI/EMP/scoringPersonasResp" schemaLocation="CLIEMPScoringPersonaResponse.xsd"/>
+			<xs:import namespace="http://osbcorp.vtr.cl/GLOBAL/EMP/HeaderRequest" schemaLocation="../../../GLOBAL/EMP/WS/HeaderRequest.xsd"/>
+			<xs:import namespace="http://osbcorp.vtr.cl/GLOBAL/EMP/HeaderResponse" schemaLocation="../../../GLOBAL/EMP/WS/HeaderResponse.xsd"/>
+			
+			<xs:element name="scoringPersonasRequest">
+				<xs:complexType>
+					<xs:sequence>  
+						<xs:element ref="obdtrq:reqScoringPersonas"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			
+			<xs:element name="scoringPersonasResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="obdtrp:respScoringPersonas"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>														
+		</xs:schema>
+	</wsdl:types>
+	
+	<wsdl:message name="scoringPersonasReq">
+		<wsdl:part name="scoringPersonasReqParam" element="tns:scoringPersonasRequest"/>
+		<wsdl:part name="headerRequest" element="hreq:HeaderRequest"/>
+	</wsdl:message>
+	<wsdl:message name="scoringPersonasResp">
+		<wsdl:part name="scoringPersonasRespParam" element="tns:scoringPersonasResponse"/>
+		<wsdl:part name="headerResponse" element="hres:HeaderResponse"/>
+	</wsdl:message>
+
+	<wsdl:portType name="scoringPersonasPT">
+		<wsdl:operation name="scoringPersonasOp">
+			<wsdl:input message="tns:scoringPersonasReq"/>
+			<wsdl:output message="tns:scoringPersonasResp"/>
+		</wsdl:operation>					
+	</wsdl:portType>
+
+	<wsdl:binding name="scoringPersonasSOAP" type="tns:scoringPersonasPT">
+		<soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="scoringPersonasOp">
+			<soap12:operation soapAction="" style="document"/>
+			<wsdl:input>
+				<soap12:header message="tns:scoringPersonasReq" part="headerRequest" use="literal"/>
+				<soap12:body use="literal" parts="scoringPersonasReqParam"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:header message="tns:scoringPersonasResp" part="headerResponse" use="literal"/>
+				<soap12:body use="literal" parts="scoringPersonasRespParam"/>
+			</wsdl:output>
+		</wsdl:operation>											
+	</wsdl:binding>
+
+	<wsdl:service name="scoringPersonas">
+		<wsdl:port binding="tns:scoringPersonasSOAP" name="scoringPersonasSOAP">
+			<soap12:address location="http://www.example.org/"/>
+		</wsdl:port>
+
+	</wsdl:service>
+</wsdl:definitions>]]></con:wsdl>
+    <con:dependencies>
+        <con:schemaRef isInclude="false" schemaLocation="CLIEMPScoringPersonaRequest.xsd" namespace="http://osbcorp.vtr.cl/CLI/EMP/scoringPersonasReq" ref="CLI/EMP/WS/CLIEMPScoringPersonaRequest"/>
+        <con:schemaRef isInclude="false" schemaLocation="../../../GLOBAL/EMP/WS/HeaderRequest.xsd" namespace="http://osbcorp.vtr.cl/GLOBAL/EMP/HeaderRequest" ref="GLOBAL/EMP/WS/HeaderRequest"/>
+        <con:schemaRef isInclude="false" schemaLocation="CLIEMPScoringPersonaResponse.xsd" namespace="http://osbcorp.vtr.cl/CLI/EMP/scoringPersonasResp" ref="CLI/EMP/WS/CLIEMPScoringPersonaResponse"/>
+        <con:schemaRef isInclude="false" schemaLocation="../../../GLOBAL/EMP/WS/HeaderResponse.xsd" namespace="http://osbcorp.vtr.cl/GLOBAL/EMP/HeaderResponse" ref="GLOBAL/EMP/WS/HeaderResponse"/>
+    </con:dependencies>
+    <con:targetNamespace>http://osbcorp.vtr.cl/CLI/EMP/scoringPersonas</con:targetNamespace>
+</con:wsdlEntry>

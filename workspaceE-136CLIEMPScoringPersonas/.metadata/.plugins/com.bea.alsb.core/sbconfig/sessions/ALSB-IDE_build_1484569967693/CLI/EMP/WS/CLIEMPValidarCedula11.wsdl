@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:wsdlEntry xmlns:con="http://www.bea.com/wli/sb/resources/config">
+    <con:wsdl><![CDATA[<WL5G3N0:definitions name="CLIEMPValidarCedula" targetNamespace="http://osbcorp.vtr.cl/CLI/EMP/ValidarCedula" xmlns:WL5G3N0="http://schemas.xmlsoap.org/wsdl/" xmlns:WL5G3N1="http://osbcorp.vtr.cl/CLI/EMP/ValidarCedula" xmlns:WL5G3N2="http://osbcorp.vtr.cl/GLOBAL/EMP/HeaderRequest" xmlns:WL5G3N3="http://osbcorp.vtr.cl/GLOBAL/EMP/HeaderResponse" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <WL5G3N0:types>
+    <xsd:schema targetNamespace="http://osbcorp.vtr.cl/CLI/EMP/ValidarCedula" xmlns:hreq="http://osbcorp.vtr.cl/GLOBAL/EMP/HeaderRequest" xmlns:hres="http://osbcorp.vtr.cl/GLOBAL/EMP/HeaderResponse" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="http://osbcorp.vtr.cl/CLI/EMP/ValidarCedula" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <xsd:import namespace="http://osbcorp.vtr.cl/GLOBAL/EMP/HeaderRequest" schemaLocation="../../../GLOBAL/EMP/WS/HeaderRequest.xsd"/>
+      <xsd:import namespace="http://osbcorp.vtr.cl/GLOBAL/EMP/HeaderResponse" schemaLocation="../../../GLOBAL/EMP/WS/HeaderResponse.xsd"/>
+      <xsd:include schemaLocation="CLIEMPValidarCedulaRequest.xsd"/>
+      <xsd:include schemaLocation="CLIEMPValidarCedulaResponse.xsd"/>
+      <xsd:element name="ValidarCedulaResponse" type="tns:ValidarEstadoCedulaResponseType"/>
+      <xsd:element name="ValidarCedula" type="tns:reqValidarEstadoCedulaRequestType"/>
+    </xsd:schema>
+  </WL5G3N0:types>
+  <WL5G3N0:message name="ValidarCedulaRequest">
+    <WL5G3N0:part element="WL5G3N1:ValidarCedula" name="parameters"/>
+    <WL5G3N0:part element="WL5G3N2:HeaderRequest" name="headerRequest"/>
+  </WL5G3N0:message>
+  <WL5G3N0:message name="ValidarCedulaResponse">
+    <WL5G3N0:part element="WL5G3N1:ValidarCedulaResponse" name="parameters"/>
+    <WL5G3N0:part element="WL5G3N3:HeaderResponse" name="headerResponse"/>
+  </WL5G3N0:message>
+  <WL5G3N0:portType name="ValidarCedulaPortType">
+    <WL5G3N0:operation name="ValidarCedula">
+      <WL5G3N0:input message="WL5G3N1:ValidarCedulaRequest"/>
+      <WL5G3N0:output message="WL5G3N1:ValidarCedulaResponse"/>
+    </WL5G3N0:operation>
+  </WL5G3N0:portType>
+  <WL5G3N0:binding name="ValidarCedulaPortTypeSOAP11Binding" type="WL5G3N1:ValidarCedulaPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <WL5G3N0:operation name="ValidarCedula">
+      <soap:operation style="document" soapAction="http://osbcorp.vtr.cl/CLI/EMP/ValidarCedula/ValidarCedula"/>
+      <WL5G3N0:input>
+        <soap:body use="literal" parts="parameters"/>
+        <soap:header message="WL5G3N1:ValidarCedulaRequest" use="literal" part="headerRequest"/>
+      </WL5G3N0:input>
+      <WL5G3N0:output>
+        <soap:body use="literal" parts="parameters"/>
+        <soap:header message="WL5G3N1:ValidarCedulaResponse" use="literal" part="headerResponse"/>
+      </WL5G3N0:output>
+    </WL5G3N0:operation>
+  </WL5G3N0:binding>
+  <WL5G3N0:service name="ValidarCedulaPortType">
+    <WL5G3N0:port name="ValidarCedulaPortTypePort" binding="WL5G3N1:ValidarCedulaPortTypeSOAP11Binding">
+      <soap:address location="http://172.17.226.23:8000/validarCedula"/>
+    </WL5G3N0:port>
+  </WL5G3N0:service>
+</WL5G3N0:definitions>]]></con:wsdl>
+    <con:dependencies>
+        <con:schemaRef isInclude="false" schemaLocation="../../../GLOBAL/EMP/WS/HeaderRequest.xsd" namespace="http://osbcorp.vtr.cl/GLOBAL/EMP/HeaderRequest" ref="GLOBAL/EMP/WS/HeaderRequest"/>
+        <con:schemaRef isInclude="false" schemaLocation="../../../GLOBAL/EMP/WS/HeaderResponse.xsd" namespace="http://osbcorp.vtr.cl/GLOBAL/EMP/HeaderResponse" ref="GLOBAL/EMP/WS/HeaderResponse"/>
+        <con:schemaRef isInclude="true" schemaLocation="CLIEMPValidarCedulaResponse.xsd" namespace="http://osbcorp.vtr.cl/CLI/EMP/ValidarCedula" ref="CLI/EMP/WS/CLIEMPValidarCedulaResponse"/>
+        <con:schemaRef isInclude="true" schemaLocation="CLIEMPValidarCedulaRequest.xsd" namespace="http://osbcorp.vtr.cl/CLI/EMP/ValidarCedula" ref="CLI/EMP/WS/CLIEMPValidarCedulaRequest"/>
+    </con:dependencies>
+    <con:targetNamespace>http://osbcorp.vtr.cl/CLI/EMP/ValidarCedula</con:targetNamespace>
+</con:wsdlEntry>

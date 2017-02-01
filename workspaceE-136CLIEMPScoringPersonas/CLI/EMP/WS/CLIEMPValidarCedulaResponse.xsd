@@ -1,0 +1,23 @@
+<xsd:schema elementFormDefault="qualified" targetNamespace="http://osbcorp.vtr.cl/CLI/EMP/ValidarCedula" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://osbcorp.vtr.cl/CLI/EMP/ValidarCedula" xmlns:ef="http://osbcorp.vtr.cl/GLOBAL/EMP/ResultadoEjecucion">
+	
+	<xsd:import namespace="http://osbcorp.vtr.cl/GLOBAL/EMP/ResultadoEjecucion" schemaLocation="../../../GLOBAL/EMP/WS/ResultadoEjecucion.xsd"/>
+ 
+ 	
+    <xsd:complexType name="ValidarEstadoCedulaResponseType">
+    	<xsd:sequence>
+    		<xsd:element name="EstadoCedula" type="tns:EstadoCedulaType" minOccurs="0"/>
+    		<xsd:element name="ResultadoEjecucion" type="ef:ResultadoEjecucionType" minOccurs="1" maxOccurs="1"/>
+    	</xsd:sequence>
+    </xsd:complexType>
+         
+      <xsd:complexType name="EstadoCedulaType">
+        <xsd:sequence>
+          <xsd:element name="estado" minOccurs="0" type="xsd:string"/>
+          <xsd:element name="razon" minOccurs="0" type="xsd:string"/>
+          <xsd:element name="fechaVencimiento" minOccurs="0" type="xsd:date" nillable="true"/>
+        </xsd:sequence>
+      </xsd:complexType>     
+             
+     
+
+</xsd:schema>

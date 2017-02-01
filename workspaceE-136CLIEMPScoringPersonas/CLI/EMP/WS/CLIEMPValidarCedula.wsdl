@@ -1,0 +1,56 @@
+<wsdl:definitions name="CLIEMPValidarCedula" targetNamespace="http://osbcorp.vtr.cl/CLI/EMP/ValidarCedula" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="http://osbcorp.vtr.cl/CLI/EMP/ValidarCedula" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:hreq="http://osbcorp.vtr.cl/GLOBAL/EMP/HeaderRequest" xmlns:hres="http://osbcorp.vtr.cl/GLOBAL/EMP/HeaderResponse">
+
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://osbcorp.vtr.cl/CLI/EMP/ValidarCedula">
+			<xsd:import namespace="http://osbcorp.vtr.cl/GLOBAL/EMP/HeaderRequest" schemaLocation="../../../GLOBAL/EMP/WS/HeaderRequest.xsd"/>
+			<xsd:import namespace="http://osbcorp.vtr.cl/GLOBAL/EMP/HeaderResponse" schemaLocation="../../../GLOBAL/EMP/WS/HeaderResponse.xsd"/>
+			<xsd:include schemaLocation="CLIEMPValidarCedulaRequest.xsd"/>
+			<xsd:include schemaLocation="CLIEMPValidarCedulaResponse.xsd"/>
+			
+			<xsd:element name="ValidarCedulaResponse" type="tns:ValidarEstadoCedulaResponseType"/>
+			<xsd:element name="ValidarCedula" type="tns:reqValidarEstadoCedulaRequestType"/>
+			
+		</xsd:schema>
+		
+		
+	</wsdl:types>
+	<wsdl:message name="ValidarCedulaRequest">
+		<wsdl:part name="parameters" element="tns:ValidarCedula"/>
+		<wsdl:part name="headerRequest" element="hreq:HeaderRequest"/>
+	</wsdl:message>
+	
+	<wsdl:message name="ValidarCedulaResponse">
+		<wsdl:part name="parameters" element="tns:ValidarCedulaResponse"/>
+		<wsdl:part name="headerResponse" element="hres:HeaderResponse"/>
+	</wsdl:message>
+	
+	<wsdl:portType name="ValidarCedulaPortType">
+		<wsdl:operation name="ValidarCedula">
+			<wsdl:input message="tns:ValidarCedulaRequest"/>
+			<wsdl:output message="tns:ValidarCedulaResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	
+	<wsdl:binding name="ValidarCedulaSOAP" type="tns:ValidarCedulaPortType">
+		<soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="ValidarCedula">
+			<soap12:operation soapAction="http://osbcorp.vtr.cl/CLI/EMP/ValidarCedula"/>
+			<wsdl:input>
+				<soap12:body use="literal" parts="parameters"/>
+				<soap12:header use="literal" part="headerRequest" message="tns:ValidarCedulaRequest"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" parts="parameters"/>
+				<soap12:header use="literal" part="headerResponse" message="tns:ValidarCedulaResponse"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	
+	
+	
+	<wsdl:service name="ValidarCedulaService">
+		<wsdl:port name="ValidarCedulaPort" binding="tns:ValidarCedulaSOAP">
+			<soap12:address location="http://www.example.org/"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

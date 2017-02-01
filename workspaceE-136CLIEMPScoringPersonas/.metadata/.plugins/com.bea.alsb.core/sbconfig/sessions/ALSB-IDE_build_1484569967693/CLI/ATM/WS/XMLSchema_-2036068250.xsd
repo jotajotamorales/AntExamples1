@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:schemaEntry xmlns:con="http://www.bea.com/wli/sb/resources/config">
+    <con:schema><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://osb.vtr.cl/GLOBAL/EMP/ResultadoEjecucion" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://osb.vtr.cl/GLOBAL/EMP/ResultadoEjecucion">
+
+	<xsd:complexType name="ResultadoEjecucionType">
+		<xsd:sequence>
+			<xsd:element name="ejecucionExitosa" type="xsd:boolean" minOccurs="1" maxOccurs="1"/>
+			<xsd:element name="codigoError" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="10"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="mensaje" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="255"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>]]></con:schema>
+    <con:targetNamespace>http://osb.vtr.cl/GLOBAL/EMP/ResultadoEjecucion</con:targetNamespace>
+</con:schemaEntry>

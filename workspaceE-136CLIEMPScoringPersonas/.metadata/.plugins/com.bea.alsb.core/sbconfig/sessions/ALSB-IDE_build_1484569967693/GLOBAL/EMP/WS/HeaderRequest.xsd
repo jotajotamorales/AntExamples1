@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:schemaEntry xmlns:con="http://www.bea.com/wli/sb/resources/config">
+    <con:schema><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://osbcorp.vtr.cl/GLOBAL/EMP/HeaderRequest"
+	targetNamespace="http://osbcorp.vtr.cl/GLOBAL/EMP/HeaderRequest"
+	elementFormDefault="qualified">
+	
+	<xsd:element name="HeaderRequest" type="tns:HeaderRequest" />
+
+	<xsd:complexType name="HeaderRequest" >
+		<xsd:sequence>
+			<element minOccurs="1" maxOccurs="1" name="Username" type="xsd:string"/>
+			<element minOccurs="1" maxOccurs="1" name="Company" type="xsd:string" />
+			<element minOccurs="1" maxOccurs="1" name="AppName" type="xsd:string" />
+			<element minOccurs="1" maxOccurs="1" name="IdClient" type="xsd:string" />
+			<element minOccurs="1" maxOccurs="1" name="ReqDate" type="xsd:dateTime" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>]]></con:schema>
+    <con:targetNamespace>http://osbcorp.vtr.cl/GLOBAL/EMP/HeaderRequest</con:targetNamespace>
+</con:schemaEntry>

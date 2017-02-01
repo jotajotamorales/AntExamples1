@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:schemaEntry xmlns:con="http://www.bea.com/wli/sb/resources/config">
+    <con:schema><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" 
+		xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+		xmlns:tns="http://osbcorp.vtr.cl/GLOBAL/EMP/HeaderResponse" 
+		targetNamespace="http://osbcorp.vtr.cl/GLOBAL/EMP/HeaderResponse" 
+		elementFormDefault="qualified">
+		
+	<xsd:element name="HeaderResponse" type="tns:datosHeaderResponse" />
+	
+	<xsd:complexType name="datosHeaderResponse">
+		<xsd:sequence>
+			<element minOccurs="1" maxOccurs="1" name="IdServer" type="xsd:string"/>			
+			<element minOccurs="1" maxOccurs="1" name="ReqSrvDate" type="xsd:dateTime"/>
+			<element minOccurs="1" maxOccurs="1" name="RespSrvDate" type="xsd:dateTime"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+</xsd:schema>]]></con:schema>
+    <con:targetNamespace>http://osbcorp.vtr.cl/GLOBAL/EMP/HeaderResponse</con:targetNamespace>
+</con:schemaEntry>

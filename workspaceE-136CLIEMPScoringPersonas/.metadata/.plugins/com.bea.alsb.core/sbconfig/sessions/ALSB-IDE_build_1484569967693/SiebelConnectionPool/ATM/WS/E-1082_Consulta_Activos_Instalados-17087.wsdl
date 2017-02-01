@@ -1,0 +1,671 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:wsdlEntry xmlns:con="http://www.bea.com/wli/sb/resources/config">
+    <con:wsdl><![CDATA[<?xml version="1.0" encoding="UTF-8"?><definitions
+ xmlns="http://schemas.xmlsoap.org/wsdl/"
+ xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+ xmlns:xsdLocal1="http://www.siebel.com/xml/OCS%20E1082%20Consulta%20Activos%20Salida%20IO/Data"
+ targetNamespace="http://siebel.com/CustomUI"
+ xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+ xmlns:tns="http://siebel.com/CustomUI"
+><types
+><xsd:schema
+ elementFormDefault="qualified"
+ attributeFormDefault="unqualified"
+ xmlns:xsdLocal1="http://www.siebel.com/xml/OCS%20E1082%20Consulta%20Activos%20Salida%20IO/Data"
+ targetNamespace="http://www.siebel.com/xml/OCS%20E1082%20Consulta%20Activos%20Salida%20IO/Data"
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+><xsd:annotation
+><xsd:documentation
+>Copyright (C) 2001-2004 Siebel Systems, Inc. All rights reserved. Siebel XSD Generation</xsd:documentation
+></xsd:annotation
+><xsd:element
+ name="Activo"
+ type="xsdLocal1:ActivoData"
+></xsd:element
+><xsd:complexType
+ name="ActivoTopElmtData"
+><xsd:sequence
+><xsd:element
+ name="Activo"
+ maxOccurs="1"
+ minOccurs="1"
+ type="xsdLocal1:ActivoData"
+></xsd:element
+></xsd:sequence
+></xsd:complexType
+><xsd:complexType
+ name="ActivoData"
+><xsd:sequence
+><xsd:element
+ name="Assets"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsdLocal1:AssetsData"
+></xsd:element
+></xsd:sequence
+></xsd:complexType
+><xsd:complexType
+ name="AssetsData"
+><xsd:sequence
+><xsd:element
+ name="Asset"
+ maxOccurs="unbounded"
+ minOccurs="0"
+ type="xsdLocal1:AssetData"
+></xsd:element
+></xsd:sequence
+><xsd:attribute
+ name="lastpage"
+ type="xsd:boolean"
+></xsd:attribute
+><xsd:attribute
+ name="recordcount"
+ type="xsd:integer"
+></xsd:attribute
+></xsd:complexType
+><xsd:complexType
+ name="AssetData"
+><xsd:sequence
+><xsd:element
+ name="AssetXA"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsdLocal1:AssetXAData"
+></xsd:element
+><xsd:element
+ name="NumeroActivo"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="NumeroActivoPrincipal"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="Producto"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="NumeroPieza"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="CuentaCliente"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="CuentaServicio"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="CuentaFacturacion"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="DireccionInstalacion"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="IdViviendaGis"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="TipoServicio"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="CIAProveeServicio"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="Fabricante"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="CodigoCIAProveeServicio"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="IdServicio"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="Tecnologia"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="Convenio"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="NumeroMovil"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="PorcentajeDescuento"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:decimal"
+></xsd:element
+><xsd:element
+ name="ValorDescuento"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:decimal"
+></xsd:element
+><xsd:element
+ name="NumeroSerie"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="FechaVenta"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:dateTime"
+></xsd:element
+><xsd:element
+ name="FechaInstalacion"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:dateTime"
+></xsd:element
+><xsd:element
+ name="FechaInactivacion"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:dateTime"
+></xsd:element
+><xsd:element
+ name="Estado"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="LineaProducto"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="Cantidad"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:int"
+></xsd:element
+><xsd:element
+ name="SKU"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="IMEI"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="Promocion"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="MSISDN"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="CodigoBodega"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="ICCID"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="PIN"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="PUK"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="MarcaEquipo"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="FlagCobranza"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:boolean"
+></xsd:element
+><xsd:element
+ name="ModeloEquipo"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="MACAddress"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="Rut"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="Nodo"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="Subnodo"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="Alias"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="CodigoLocalidad"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="ApellidoMaterno"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="Zona"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="CodigoZona"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="Comuna"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="ApellidoPaterno"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="CorreoElectronico"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="DescripcionSKU"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="DireccionPrimariaCuenta"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="CodigoSerie"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="DireccionServicio"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="FlagPrepago"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:boolean"
+></xsd:element
+><xsd:element
+ name="FlagCPE"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:boolean"
+></xsd:element
+><xsd:element
+ name="FlagRequierePago"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:boolean"
+></xsd:element
+><xsd:element
+ name="MontoPagar"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:decimal"
+></xsd:element
+><xsd:element
+ name="FlagPagado"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:boolean"
+></xsd:element
+><xsd:element
+ name="FlagBloqueoRobo"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:boolean"
+></xsd:element
+><xsd:element
+ name="FlagListaNegra"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:boolean"
+></xsd:element
+><xsd:element
+ name="IDTrxListaNegra"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="FlagPortado"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:boolean"
+></xsd:element
+><xsd:element
+ name="IDTrxSolicitudPortabilidad"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="CodigoEstadoPortabilidad"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="IDItemInventario"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="IDTrxInventario"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="Familia"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="IDAsset"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="UnitAddress"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="ClaseProducto"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="IdEquipo"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="IntegrationId"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="IdAssetPrincipal"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="IdProductoPrincipal"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="SerialNumber"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+></xsd:sequence
+></xsd:complexType
+><xsd:complexType
+ name="AssetXAData"
+><xsd:sequence
+><xsd:element
+ name="AssetXA"
+ maxOccurs="unbounded"
+ minOccurs="0"
+ type="xsdLocal1:AssetXAData1"
+></xsd:element
+></xsd:sequence
+><xsd:attribute
+ name="lastpage"
+ type="xsd:boolean"
+></xsd:attribute
+><xsd:attribute
+ name="recordcount"
+ type="xsd:integer"
+></xsd:attribute
+></xsd:complexType
+><xsd:complexType
+ name="AssetXAData1"
+><xsd:sequence
+><xsd:element
+ name="Valor"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="Nombre"
+ maxOccurs="1"
+ minOccurs="0"
+ type="xsd:string"
+></xsd:element
+></xsd:sequence
+></xsd:complexType
+></xsd:schema
+><xsd:schema
+ elementFormDefault="qualified"
+ attributeFormDefault="unqualified"
+ targetNamespace="http://siebel.com/CustomUI"
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+><xsd:import
+ namespace="http://www.siebel.com/xml/OCS%20E1082%20Consulta%20Activos%20Salida%20IO/Data"
+></xsd:import
+><xsd:element
+ name="ConsultaActivosInscritos_Input"
+><xsd:complexType
+><xsd:sequence
+><xsd:element
+ name="rutCliente"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="aniCliente"
+ type="xsd:string"
+></xsd:element
+></xsd:sequence
+></xsd:complexType
+></xsd:element
+><xsd:element
+ name="ConsultaActivosInscritos_Output"
+><xsd:complexType
+><xsd:sequence
+><xsd:element
+ ref="xsdLocal1:Activo"
+></xsd:element
+><xsd:element
+ name="Error_spcCode"
+ type="xsd:string"
+></xsd:element
+><xsd:element
+ name="Error_spcMessage"
+ type="xsd:string"
+></xsd:element
+></xsd:sequence
+></xsd:complexType
+></xsd:element
+></xsd:schema
+></types
+><message
+ name="ConsultaActivosInscritos_Input"
+><part
+ name="ConsultaActivosInscritos_Input"
+ element="tns:ConsultaActivosInscritos_Input"
+></part
+></message
+><message
+ name="ConsultaActivosInscritos_Output"
+><part
+ name="ConsultaActivosInscritos_Output"
+ element="tns:ConsultaActivosInscritos_Output"
+></part
+></message
+><portType
+ name="OCS_spcE1082_spcConsulta_spcActivos_spcInscritos_spcWF"
+><operation
+ name="ConsultaActivosInscritos"
+><input
+ message="tns:ConsultaActivosInscritos_Input"
+></input
+><output
+ message="tns:ConsultaActivosInscritos_Output"
+></output
+></operation
+></portType
+><binding
+ name="OCS_spcE1082_spcConsulta_spcActivos_spcInscritos_spcWF"
+ type="tns:OCS_spcE1082_spcConsulta_spcActivos_spcInscritos_spcWF"
+><soap:binding
+ transport="http://schemas.xmlsoap.org/soap/http"
+ style="document"
+></soap:binding
+><operation
+ name="ConsultaActivosInscritos"
+><soap:operation
+ soapAction="document/http://siebel.com/CustomUI:ConsultaActivosInscritos"
+></soap:operation
+><input
+><soap:body
+ use="literal"
+></soap:body
+></input
+><output
+><soap:body
+ use="literal"
+></soap:body
+></output
+></operation
+></binding
+><service
+ name="OCS_spcE1082_spcConsulta_spcActivos_spcInscritos_spcWF"
+><port
+ binding="tns:OCS_spcE1082_spcConsulta_spcActivos_spcInscritos_spcWF"
+ name="OCS_spcE1082_spcConsulta_spcActivos_spcInscritos_spcWF"
+><soap:address
+ location="http://172.17.226.13:2080/eai_esn/start.swe?SWEExtSource=WebService&amp;SWEExtCmd=Execute&amp;WSSOAP=1"
+></soap:address
+></port
+></service
+></definitions
+>]]></con:wsdl>
+    <con:targetNamespace>http://siebel.com/CustomUI</con:targetNamespace>
+</con:wsdlEntry>

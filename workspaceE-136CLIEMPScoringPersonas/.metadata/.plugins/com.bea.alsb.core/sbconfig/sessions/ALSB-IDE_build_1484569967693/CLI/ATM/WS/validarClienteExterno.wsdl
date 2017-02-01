@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:wsdlEntry xmlns:con="http://www.bea.com/wli/sb/resources/config">
+    <con:wsdl><![CDATA[<WL5G3N0:definitions name="CLIDOMValidarClienteExterno" targetNamespace="http://osb.vtr.cl/CLI/DOM/ValidarClienteExterno" xmlns:WL5G3N0="http://schemas.xmlsoap.org/wsdl/" xmlns:WL5G3N1="http://osb.vtr.cl/CLI/DOM/ValidarClienteExterno" xmlns:WL5G3N2="http://schemas.xmlsoap.org/wsdl/soap12/">
+  <WL5G3N0:types>
+    <xsd:schema targetNamespace="http://osb.vtr.cl/CLI/DOM/ValidarClienteExterno" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="http://osb.vtr.cl/CLI/DOM/ValidarClienteExterno" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <xsd:include schemaLocation="XMLSchema_808825176.xsd"/>
+      <xsd:include schemaLocation="XMLSchema_-1555698576.xsd"/>
+      <xsd:element name="ValidarClienteExternoResponse" type="tns:ValidarClienteExternoResponseType"/>
+      <xsd:element name="ValidarClienteExterno" type="tns:ValidarClienteExternoRequestType"/>
+    </xsd:schema>
+  </WL5G3N0:types>
+  <WL5G3N0:message name="ValidarClienteExternoRequest">
+    <WL5G3N0:part element="WL5G3N1:ValidarClienteExterno" name="parameters"/>
+  </WL5G3N0:message>
+  <WL5G3N0:message name="ValidarClienteExternoResponse">
+    <WL5G3N0:part element="WL5G3N1:ValidarClienteExternoResponse" name="parameters"/>
+  </WL5G3N0:message>
+  <WL5G3N0:portType name="ValidarClienteExternoPortType">
+    <WL5G3N0:operation name="validarClienteExterno">
+      <WL5G3N0:input message="WL5G3N1:ValidarClienteExternoRequest"/>
+      <WL5G3N0:output message="WL5G3N1:ValidarClienteExternoResponse"/>
+    </WL5G3N0:operation>
+  </WL5G3N0:portType>
+  <WL5G3N0:binding name="ValidarClienteExternoSOAP" type="WL5G3N1:ValidarClienteExternoPortType">
+    <WL5G3N2:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <WL5G3N0:operation name="validarClienteExterno">
+      <WL5G3N2:operation soapAction="http://osb.vtr.cl/CLI/DOM/ValidarClienteExterno/ValidarClienteExterno"/>
+      <WL5G3N0:input>
+        <WL5G3N2:body parts="parameters" use="literal"/>
+      </WL5G3N0:input>
+      <WL5G3N0:output>
+        <WL5G3N2:body parts="parameters" use="literal"/>
+      </WL5G3N0:output>
+    </WL5G3N0:operation>
+  </WL5G3N0:binding>
+  <WL5G3N0:service name="ValidarClienteExternoSOAPQSService">
+    <WL5G3N0:port binding="WL5G3N1:ValidarClienteExternoSOAP" name="ValidarClienteExternoSOAPQSPort">
+      <WL5G3N2:address location="http://kosbqa.vtr.cl:80/CLI/DOM/PX/validarClienteExterno"/>
+    </WL5G3N0:port>
+  </WL5G3N0:service>
+</WL5G3N0:definitions>]]></con:wsdl>
+    <con:dependencies>
+        <con:schemaRef isInclude="true" schemaLocation="XMLSchema_-1555698576.xsd" namespace="http://osb.vtr.cl/CLI/DOM/ValidarClienteExterno" ref="CLI/ATM/WS/XMLSchema_-1555698576"/>
+        <con:schemaRef isInclude="true" schemaLocation="XMLSchema_808825176.xsd" namespace="http://osb.vtr.cl/CLI/DOM/ValidarClienteExterno" ref="CLI/ATM/WS/XMLSchema_808825176"/>
+    </con:dependencies>
+    <con:targetNamespace>http://osb.vtr.cl/CLI/DOM/ValidarClienteExterno</con:targetNamespace>
+</con:wsdlEntry>

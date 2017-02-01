@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con="http://www.bea.com/wli/sb/typesystem/config" xmlns:con1="http://www.bea.com/wli/sb/pipeline/config" xmlns:con2="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con3="http://www.bea.com/wli/sb/stages/config" xmlns:con4="http://www.bea.com/wli/sb/stages/logging/config">
+  <ser:coreEntry isProxy="true" isEnabled="true" isAutoPublish="false" isTracingEnabled="false">
+    <ser:binding type="Mixed" xsi:type="con4:MixedBindingType" xmlns:con4="http://www.bea.com/wli/sb/services/bindings/config">
+      <con4:request type="XML">
+        <con:schema ref="CLI/DOM/WS/CLIDOMScoringPersonaRequest" element="reqScoringPersonas"/>
+      </con4:request>
+      <con4:response type="XML">
+        <con:schema ref="CLI/DOM/WS/CLIDOMScoringPersonaResponse" element="respScoringPersonas"/>
+      </con4:response>
+    </ser:binding>
+    <ser:monitoring isEnabled="false">
+      <ser:aggregationInterval>10</ser:aggregationInterval>
+      <ser:pipelineMonitoringLevel>Pipeline</ser:pipelineMonitoringLevel>
+    </ser:monitoring>
+    <ser:reporting>true</ser:reporting>
+    <ser:logging isEnabled="true">
+      <ser:logLevel>debug</ser:logLevel>
+    </ser:logging>
+    <ser:sla-alerting isEnabled="true">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:sla-alerting>
+    <ser:pipeline-alerting isEnabled="true">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:pipeline-alerting>
+  </ser:coreEntry>
+  <ser:endpointConfig>
+    <tran:provider-id>http</tran:provider-id>
+    <tran:inbound>true</tran:inbound>
+    <tran:URI>
+      <env:value>/CLI/DOM/PX/CLIDOMScoringPersonas</env:value>
+    </tran:URI>
+    <tran:inbound-properties/>
+    <tran:all-headers>false</tran:all-headers>
+    <tran:provider-specific>
+      <http:inbound-properties/>
+    </tran:provider-specific>
+  </ser:endpointConfig>
+  <ser:router errorHandler="_onErrorHandler-5355209937370491851--36f18d4e.14fd1792509.-7878">
+    <con1:pipeline type="request" name="PipelinePairNode1_request">
+      <con1:stage name="MockService11">
+        <con1:context/>
+        <con1:actions>
+          <con2:assign varName="outDOM">
+            <con3:id>_ActionId-1275936163567830681--48ad9e34.159a742de79.-7d6b</con3:id>
+            <con2:expr>
+              <con3:xqueryTransform>
+                <con3:resource ref="CLI/DOM/TLS/XQ_CLIDOMScoringPersonasDummyIN_to_CLIEMPScoringPersonasDummyOUT"/>
+                <con3:param name="codigoError">
+                  <con3:path>'001'</con3:path>
+                </con3:param>
+                <con3:param name="ejecucionExitosa">
+                  <con3:path>true()</con3:path>
+                </con3:param>
+                <con3:param name="mensaje">
+                  <con3:path>'Ejecución Exitosa'</con3:path>
+                </con3:param>
+                <con3:param name="grupoRiesgo">
+                  <con3:path>'A'</con3:path>
+                </con3:param>
+                <con3:param name="puntajeScoring">
+                  <con3:path>995</con3:path>
+                </con3:param>
+                <con3:param name="glosaResultado">
+                  <con3:path>'Libre'</con3:path>
+                </con3:param>
+              </con3:xqueryTransform>
+            </con2:expr>
+          </con2:assign>
+          <con2:replace varName="body" contents-only="true">
+            <con3:id>_ActionId-2966904643904547156--5ac687c.159a7b06678.-7f32</con3:id>
+            <con2:location>
+              <con3:xpathText>.</con3:xpathText>
+            </con2:location>
+            <con2:expr>
+              <con3:xqueryTransform>
+                <con3:resource ref="CLI/DOM/TLS/XQ_CLIDOMScoringPersonasDummyIN_to_CLIEMPScoringPersonasDummyOUT"/>
+                <con3:param name="codigoError">
+                  <con3:path>'001'</con3:path>
+                </con3:param>
+                <con3:param name="ejecucionExitosa">
+                  <con3:path>true()</con3:path>
+                </con3:param>
+                <con3:param name="mensaje">
+                  <con3:path>'Ejecución Exitosa'</con3:path>
+                </con3:param>
+                <con3:param name="grupoRiesgo">
+                  <con3:path>'A'</con3:path>
+                </con3:param>
+                <con3:param name="puntajeScoring">
+                  <con3:path>995</con3:path>
+                </con3:param>
+                <con3:param name="glosaResultado">
+                  <con3:path>'Libre'</con3:path>
+                </con3:param>
+              </con3:xqueryTransform>
+            </con2:expr>
+          </con2:replace>
+          <con3:reply>
+            <con3:id>_ActionId-1275936163567830681--48ad9e34.159a742de79.-7d6a</con3:id>
+          </con3:reply>
+        </con1:actions>
+      </con1:stage>
+      <con1:stage name="inicio">
+        <con1:context/>
+        <con1:actions>
+          <con2:assign varName="fechaInicio">
+            <con3:id>_ActionId-5355209937370491851--36f18d4e.14fd1792509.-7a8a</con3:id>
+            <con2:expr>
+              <con3:xqueryText>fn:current-dateTime()</con3:xqueryText>
+            </con2:expr>
+          </con2:assign>
+          <con2:assign varName="esScoringInterno">
+            <con3:id>_ActionId-6142669265834267061--16e457c9.159933b942c.-7f53</con3:id>
+            <con2:expr>
+              <con3:xqueryText>'0'</con3:xqueryText>
+            </con2:expr>
+          </con2:assign>
+        </con1:actions>
+      </con1:stage>
+      <con1:stage name="validateIN">
+        <con1:context>
+          <con3:varNsDecl namespace="http://osbcorp.vtr.cl/CLI/DOM/scoringPersonasReq" prefix="scor"/>
+        </con1:context>
+        <con1:actions>
+          <con2:validate>
+            <con3:id>_ActionId-8124225658770841661-1b6eae62.14fd28f5415.-7f93</con3:id>
+            <con2:schema ref="CLI/DOM/WS/CLIDOMScoringPersonaRequest"/>
+            <con2:schemaElement xmlns:scor="http://osbcorp.vtr.cl/CLI/DOM/scoringPersonasReq">scor:reqScoringPersonas</con2:schemaElement>
+            <con2:varName>body</con2:varName>
+            <con2:location>
+              <con3:xpathText>./scor:reqScoringPersonas</con3:xpathText>
+            </con2:location>
+          </con2:validate>
+        </con1:actions>
+      </con1:stage>
+      <con1:stage name="setInput">
+        <con1:context>
+          <con3:varNsDecl namespace="http://osbcorp.vtr.cl/CLI/DOM/scoringPersonasReq" prefix="scor"/>
+          <con3:varNsDecl namespace="http://osb.vtr.cl/CLI/ATM/RegistrarLogScoring" prefix="reg"/>
+        </con1:context>
+        <con1:actions>
+          <con2:assign varName="inputBS">
+            <con3:id>_ActionId-5355209937370491851--36f18d4e.14fd1792509.-7b9a</con3:id>
+            <con2:expr>
+              <con3:xqueryTransform>
+                <con3:resource ref="CLI/DOM/TLS/XQ_CLIDOMScoringPersonas_to_CLIATMScoringPersonas"/>
+                <con3:param name="reqScoringPersonas1">
+                  <con3:path>$body/scor:reqScoringPersonas</con3:path>
+                </con3:param>
+              </con3:xqueryTransform>
+            </con2:expr>
+          </con2:assign>
+        </con1:actions>
+      </con1:stage>
+      <con1:stage name="call_ATM">
+        <con1:context/>
+        <con1:actions>
+          <con2:wsCallout>
+            <con3:id>_ActionId-6740374381684962263-53c9068d.157766a2a13.-7f94</con3:id>
+            <con2:service xsi:type="ref:BusinessServiceRef" ref="CLI/ATM/BS/CLIATMConsultarScoringInterno" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+            <con2:operation>getScoringInternoPersonas</con2:operation>
+            <con2:request>
+              <con2:body>$inputBS</con2:body>
+            </con2:request>
+            <con2:response>
+              <con2:body>outputBS</con2:body>
+            </con2:response>
+            <con2:requestTransform/>
+            <con2:responseTransform/>
+          </con2:wsCallout>
+        </con1:actions>
+      </con1:stage>
+      <con1:stage name="stageAnalizarScoringInterno">
+        <con1:context>
+          <con3:varNsDecl namespace="http://osb.vtr.cl/CLI/ATM/ConsultarScoringInterno" prefix="con"/>
+          <con:variable name="outputBS" path="$outputBS" asChild="false">
+            <con:schema ref="CLI/ATM/WS/XMLSchemaConsultarScoringInterno" element="getScoringInternoPersonasResponse"/>
+          </con:variable>
+        </con1:context>
+        <con1:actions>
+          <con2:ifThenElse>
+            <con3:id>_ActionId-6142669265834267061--16e457c9.159933b942c.-7fca</con3:id>
+            <con2:case>
+              <con2:condition>
+                <con3:xqueryText>$outputBS/srvConsultaScoringInterno/ResultadoEjecucion/EjecucionExitosa  = 'true'</con3:xqueryText>
+              </con2:condition>
+              <con2:actions>
+                <con2:assign varName="esScoringInterno">
+                  <con3:id>_ActionId-6142669265834267061--16e457c9.159933b942c.-7f31</con3:id>
+                  <con2:expr>
+                    <con3:xqueryText>'1'</con3:xqueryText>
+                  </con2:expr>
+                </con2:assign>
+              </con2:actions>
+            </con2:case>
+            <con2:default>
+              <con2:assign varName="esScoringInterno">
+                <con3:id>_ActionId-6142669265834267061--16e457c9.159933b942c.-7f20</con3:id>
+                <con2:expr>
+                  <con3:xqueryText>'0'</con3:xqueryText>
+                </con2:expr>
+              </con2:assign>
+            </con2:default>
+          </con2:ifThenElse>
+        </con1:actions>
+      </con1:stage>
+      <con1:stage name="calcularPermanencia">
+        <con1:context>
+          <con3:varNsDecl namespace="http://osbcorp.vtr.cl/CLI/DOM/scoringPersonasReq" prefix="scor"/>
+        </con1:context>
+        <con1:actions>
+          <con2:ifThenElse>
+            <con3:id>_ActionId-6142669265834267061--16e457c9.159933b942c.-7f04</con3:id>
+            <con2:case>
+              <con2:condition>
+                <con3:xqueryText>$esScoringInterno = '0'</con3:xqueryText>
+              </con2:condition>
+              <con2:actions>
+                <con2:assign varName="inputActivosInstaladosSiebel">
+                  <con3:id>_ActionId-6142669265834267061--16e457c9.159933b942c.-7ee6</con3:id>
+                  <con2:expr>
+                    <con3:xqueryTransform>
+                      <con3:resource ref="CLI/DOM/TLS/XQ_CLIDOMScoringPersonas_to_CLIATMConsultarActivoInstaladoSiebel"/>
+                      <con3:param name="rutCliente">
+                        <con3:path>data($body/scor:reqScoringPersonas/scor:rut)</con3:path>
+                      </con3:param>
+                    </con3:xqueryTransform>
+                  </con2:expr>
+                </con2:assign>
+                <con2:wsCallout>
+                  <con3:id>_ActionId-6142669265834267061--16e457c9.159933b942c.-7e90</con3:id>
+                  <con2:service xsi:type="ref:ProxyRef" ref="CLI/ATM/PX/CLIATMConsultarActivoInstaladoSiebel" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                  <con2:operation>ConsultaActivosInscritos</con2:operation>
+                  <con2:request>
+                    <con2:body>$inputActivosInstaladosSiebel</con2:body>
+                  </con2:request>
+                  <con2:response>
+                    <con2:body>outputActivosInstaladosSiebel</con2:body>
+                  </con2:response>
+                  <con2:requestTransform/>
+                  <con2:responseTransform/>
+                </con2:wsCallout>
+                <con2:assign varName="outputDiasPermanencia">
+                  <con3:id>_ActionId-6142669265834267061--16e457c9.159933b942c.-7e72</con3:id>
+                  <con2:expr>
+                    <con3:xqueryTransform>
+                      <con3:resource ref="CLI/DOM/TLS/XQ_CLIATMConsultarActivoInstaladoSiebel_to_CLIDOMScoringPersonas"/>
+                      <con3:param name="consultaActivosInscritos_Output1">
+                        <con3:path>$outputActivosInstaladosSiebel</con3:path>
+                      </con3:param>
+                    </con3:xqueryTransform>
+                  </con2:expr>
+                </con2:assign>
+              </con2:actions>
+            </con2:case>
+            <con2:default/>
+          </con2:ifThenElse>
+        </con1:actions>
+      </con1:stage>
+    </con1:pipeline>
+    <con1:pipeline type="response" name="PipelinePairNode1_response">
+      <con1:stage name="setOuput">
+        <con1:context>
+          <con3:varNsDecl namespace="http://osbcorp.vtr.cl/CLI/ATM/obtenerClienteScore/" prefix="obt"/>
+          <con3:varNsDecl namespace="http://osbcorp.vtr.cl/CLI/DOM/scoringPersonasResp" prefix="scor"/>
+          <con3:varNsDecl namespace="http://osbcorp.vtr.cl/GLOBAL/EMP/ResultadoEjecucion" prefix="res"/>
+          <con:variable name="outputBS" path="$outputBS" asChild="false">
+            <con:schema ref="CLI/ATM/WS/XMLSchemaConsultarScoringInterno" element="RespuestaConsultarDatos"/>
+          </con:variable>
+        </con1:context>
+        <con1:actions>
+          <con2:assign varName="bodySalida">
+            <con3:id>_ActionId-5355209937370491851--36f18d4e.14fd1792509.-7921</con3:id>
+            <con2:expr>
+              <con3:xqueryTransform>
+                <con3:resource ref="CLI/DOM/TLS/XQ_CLIATMScoringPersonas_to_CLIDOMScoringPersonas"/>
+                <con3:param name="getScoringInternoPersonasResponse1">
+                  <con3:path>$outputBS</con3:path>
+                </con3:param>
+              </con3:xqueryTransform>
+            </con2:expr>
+          </con2:assign>
+          <con2:assign varName="varPuntajeScoring">
+            <con3:id>_ActionId-9046507708993055613--9f8e340.157d30385b3.-7dbe</con3:id>
+            <con2:expr>
+              <con3:xqueryText>data($bodySalida/scor:scoringPersonas/scor:puntajeScoring)</con3:xqueryText>
+            </con2:expr>
+          </con2:assign>
+        </con1:actions>
+      </con1:stage>
+      <con1:stage name="fin">
+        <con1:context>
+          <con3:varNsDecl namespace="http://osbcorp.vtr.cl/CLI/DOM/scoringPersonasReq" prefix="scor"/>
+        </con1:context>
+        <con1:actions>
+          <con2:assign varName="fechaFin">
+            <con3:id>_ActionId-5355209937370491851--36f18d4e.14fd1792509.-7879</con3:id>
+            <con2:expr>
+              <con3:xqueryText>fn:current-dateTime()</con3:xqueryText>
+            </con2:expr>
+          </con2:assign>
+        </con1:actions>
+      </con1:stage>
+      <con1:stage name="registroLog" errorHandler="_onErrorHandler-9046507708993055613--9f8e340.157d30385b3.-7c50">
+        <con1:context>
+          <con3:varNsDecl namespace="http://osbcorp.vtr.cl/CLI/DOM/scoringPersonasReq" prefix="scor"/>
+          <con3:varNsDecl namespace="http://osbcorp.vtr.cl/CLI/DOM/scoringPersonasResp" prefix="scor1"/>
+        </con1:context>
+        <con1:actions>
+          <con2:assign varName="requestLogScoring">
+            <con3:id>_ActionId-9046507708993055613--9f8e340.157d30385b3.-7fae</con3:id>
+            <con2:expr>
+              <con3:xqueryTransform>
+                <con3:resource ref="CLI/DOM/TLS/XQ_CLIDOMScoringPersonas_to_CLIATMRegistrarLogScoring"/>
+                <con3:param name="origenScoring">
+                  <con3:path>'Scoring Interno'</con3:path>
+                </con3:param>
+                <con3:param name="permanenciaCalculada">
+                  <con3:path>'0'</con3:path>
+                </con3:param>
+                <con3:param name="tenenciaCalculada">
+                  <con3:path>'0'</con3:path>
+                </con3:param>
+                <con3:param name="scoringCalculado">
+                  <con3:path>$varPuntajeScoring</con3:path>
+                </con3:param>
+                <con3:param name="rutCliente">
+                  <con3:path>data($inputBS/srvConsultaScoringInternoRequest/rut_cliente)</con3:path>
+                </con3:param>
+                <con3:param name="tipoProducto">
+                  <con3:path>data($inputBS/srvConsultaScoringInternoRequest/tipo_producto)</con3:path>
+                </con3:param>
+              </con3:xqueryTransform>
+            </con2:expr>
+          </con2:assign>
+          <con2:wsCallout>
+            <con3:id>_ActionId-9046507708993055613--9f8e340.157d30385b3.-7f9c</con3:id>
+            <con2:service xsi:type="ref:BusinessServiceRef" ref="CLI/ATM/BS/CLIATMRegistrarLogScoring" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+            <con2:operation>setLogScoring</con2:operation>
+            <con2:request>
+              <con2:body>$requestLogScoring</con2:body>
+            </con2:request>
+            <con2:response>
+              <con2:body>responseLogScoring</con2:body>
+            </con2:response>
+            <con2:requestTransform/>
+            <con2:responseTransform/>
+          </con2:wsCallout>
+        </con1:actions>
+      </con1:stage>
+      <con1:stage name="stageRespuesta">
+        <con1:context/>
+        <con1:actions>
+          <con2:replace varName="body" contents-only="true">
+            <con3:id>_ActionId-9046507708993055613--9f8e340.157d30385b3.-7ec5</con3:id>
+            <con2:expr>
+              <con3:xqueryText>$bodySalida</con3:xqueryText>
+            </con2:expr>
+          </con2:replace>
+        </con1:actions>
+      </con1:stage>
+    </con1:pipeline>
+    <con1:pipeline type="error" name="_onErrorHandler-5355209937370491851--36f18d4e.14fd1792509.-7878">
+      <con1:stage name="stageError">
+        <con1:context>
+          <con3:userNsDecl namespace="http://osbcorp.vtr.cl/GLOBAL/EMP/ResultadoEjecucion" prefix="res"/>
+          <con3:varNsDecl namespace="http://osbcorp.vtr.cl/CLI/DOM/scoringPersonasResp" prefix="scor"/>
+        </con1:context>
+        <con1:actions>
+          <con4:log>
+            <con3:id>_ActionId-9046507708993055613--9f8e340.157d30385b3.-7cbd</con3:id>
+            <con4:logLevel>error</con4:logLevel>
+            <con4:expr>
+              <con3:xqueryText>concat('[scoringPersonas]',$fault/ctx:errorCode,' ',$fault/ctx:reason)</con3:xqueryText>
+            </con4:expr>
+          </con4:log>
+          <con2:replace varName="body" contents-only="true">
+            <con3:id>_ActionId-142215550933816677--17143ddf.1578baad4df.-7fc9</con3:id>
+            <con2:expr>
+              <con3:xqueryText><![CDATA[<scor:respScoringPersonas>
+	<scor:ResultadoEjecucion>
+		<res:ejecucionExitosa>true</res:ejecucionExitosa>
+		<res:codigoError>0</res:codigoError>
+		<res:mensaje>OK</res:mensaje>
+	</scor:ResultadoEjecucion>
+	<scor:scoringPersonas>
+               <scor:puntajeScoring>125</scor:puntajeScoring>
+               <scor:grupoRiesgo>0</scor:grupoRiesgo>
+               <scor:glosaResultado>Control - 125</scor:glosaResultado>
+    </scor:scoringPersonas>
+</scor:respScoringPersonas>]]></con3:xqueryText>
+            </con2:expr>
+          </con2:replace>
+          <con3:reply>
+            <con3:id>_ActionId-5355209937370491851--36f18d4e.14fd1792509.-7686</con3:id>
+          </con3:reply>
+        </con1:actions>
+      </con1:stage>
+    </con1:pipeline>
+    <con1:pipeline type="error" name="_onErrorHandler-9046507708993055613--9f8e340.157d30385b3.-7c50">
+      <con1:stage name="stageErrorLog">
+        <con1:context/>
+        <con1:actions>
+          <con4:log>
+            <con3:id>_ActionId-9046507708993055613--9f8e340.157d30385b3.-7c35</con3:id>
+            <con4:logLevel>error</con4:logLevel>
+            <con4:expr>
+              <con3:xqueryText>concat('[ScoringPersonas] [Error al llamar el log]',' ',$fault/ctx:errorCode,' ',$fault/ctx:reason)</con3:xqueryText>
+            </con4:expr>
+          </con4:log>
+          <con3:resume>
+            <con3:id>_ActionId-9046507708993055613--9f8e340.157d30385b3.-7c21</con3:id>
+          </con3:resume>
+        </con1:actions>
+      </con1:stage>
+    </con1:pipeline>
+    <con1:flow>
+      <con1:pipeline-node name="PipelinePairNode1">
+        <con1:request>PipelinePairNode1_request</con1:request>
+        <con1:response>PipelinePairNode1_response</con1:response>
+      </con1:pipeline-node>
+    </con1:flow>
+  </ser:router>
+</xml-fragment>

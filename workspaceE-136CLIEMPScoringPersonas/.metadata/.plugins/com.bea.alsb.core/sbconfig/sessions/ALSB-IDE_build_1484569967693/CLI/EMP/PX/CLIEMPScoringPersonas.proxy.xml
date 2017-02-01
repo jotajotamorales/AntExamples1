@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config">
+  <ser:coreEntry isProxy="true" isEnabled="true" isAutoPublish="false" isTracingEnabled="false">
+    <ser:binding type="SOAP" isSoap12="true" xsi:type="con:SoapBindingType" xmlns:con="http://www.bea.com/wli/sb/services/bindings/config">
+      <con:wsdl ref="CLI/EMP/WS/CLIEMPScoringPersonas"/>
+      <con:port>
+        <con:name>scoringPersonasSOAP</con:name>
+        <con:namespace>http://osbcorp.vtr.cl/CLI/EMP/scoringPersonas</con:namespace>
+      </con:port>
+      <con:selector type="SOAP body"/>
+    </ser:binding>
+    <ser:monitoring isEnabled="false">
+      <ser:aggregationInterval>10</ser:aggregationInterval>
+      <ser:pipelineMonitoringLevel>Pipeline</ser:pipelineMonitoringLevel>
+    </ser:monitoring>
+    <ser:reporting>true</ser:reporting>
+    <ser:logging isEnabled="true">
+      <ser:logLevel>debug</ser:logLevel>
+    </ser:logging>
+    <ser:sla-alerting isEnabled="true">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:sla-alerting>
+    <ser:pipeline-alerting isEnabled="true">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:pipeline-alerting>
+    <ser:ws-policy>
+      <ser:binding-mode>wsdl-policy-attachments</ser:binding-mode>
+    </ser:ws-policy>
+  </ser:coreEntry>
+  <ser:endpointConfig>
+    <tran:provider-id>http</tran:provider-id>
+    <tran:inbound>true</tran:inbound>
+    <tran:URI>
+      <env:value>/scoringPersonas</env:value>
+    </tran:URI>
+    <tran:inbound-properties/>
+    <tran:all-headers>false</tran:all-headers>
+    <tran:provider-specific>
+      <http:inbound-properties/>
+    </tran:provider-specific>
+  </ser:endpointConfig>
+  <ser:router errorHandler="_onErrorHandler-5355209937370491851--36f18d4e.14fd1792509.-73ce">
+    <con:pipeline type="request" name="PipelinePairNode1_request">
+      <con:stage name="inicio">
+        <con:context>
+          <con2:varNsDecl namespace="http://osbcorp.vtr.cl/CLI/EMP/scoringPersonas" prefix="scor"/>
+          <con2:varNsDecl namespace="http://osbcorp.vtr.cl/CLI/EMP/scoringPersonasReq" prefix="scor1"/>
+        </con:context>
+        <con:actions>
+          <con1:assign varName="fechaInicio">
+            <con2:id>_ActionId-5355209937370491851--36f18d4e.14fd1792509.-7646</con2:id>
+            <con1:expr>
+              <con2:xqueryText>fn:current-dateTime()</con2:xqueryText>
+            </con1:expr>
+          </con1:assign>
+          <con1:assign varName="dv">
+            <con2:id>_ActionId-1732571405235610517--20499658.154961c79f4.-7f0e</con2:id>
+            <con1:expr>
+              <con2:xqueryText>fn-bea:trim(fn:substring-after(data($body/scor:scoringPersonasRequest/scor1:reqScoringPersonas/scor1:rut),
+     '-'))</con2:xqueryText>
+            </con1:expr>
+          </con1:assign>
+        </con:actions>
+      </con:stage>
+      <con:stage name="validateIN">
+        <con:context>
+          <con2:varNsDecl namespace="http://osbcorp.vtr.cl/GLOBAL/EMP/HeaderRequest" prefix="head"/>
+          <con2:varNsDecl namespace="http://osbcorp.vtr.cl/CLI/EMP/scoringPersonas" prefix="scor"/>
+        </con:context>
+        <con:actions>
+          <con1:validate>
+            <con2:id>_ActionId-5355209937370491851--36f18d4e.14fd1792509.-71dc</con2:id>
+            <con1:schema ref="GLOBAL/EMP/WS/HeaderRequest"/>
+            <con1:schemaElement xmlns:head="http://osbcorp.vtr.cl/GLOBAL/EMP/HeaderRequest">head:HeaderRequest</con1:schemaElement>
+            <con1:varName>header</con1:varName>
+            <con1:location>
+              <con2:xpathText>./head:HeaderRequest</con2:xpathText>
+            </con1:location>
+          </con1:validate>
+          <con1:validate>
+            <con2:id>_ActionId-5355209937370491851--36f18d4e.14fd1792509.-7186</con2:id>
+            <con1:wsdl ref="CLI/EMP/WS/CLIEMPScoringPersonas"/>
+            <con1:schemaElement xmlns:scor="http://osbcorp.vtr.cl/CLI/DOM/scoringPersonasReq" xmlns:scor1="http://osbcorp.vtr.cl/CLI/EMP/scoringPersonas">scor1:scoringPersonasRequest</con1:schemaElement>
+            <con1:varName>body</con1:varName>
+            <con1:location>
+              <con2:xpathText>./scor:scoringPersonasRequest</con2:xpathText>
+            </con1:location>
+          </con1:validate>
+        </con:actions>
+      </con:stage>
+      <con:stage name="setInput">
+        <con:context>
+          <con2:varNsDecl namespace="http://osbcorp.vtr.cl/CLI/EMP/scoringPersonas" prefix="scor"/>
+        </con:context>
+        <con:actions>
+          <con1:assign varName="inDOM">
+            <con2:id>_ActionId-5355209937370491851--36f18d4e.14fd1792509.-75d8</con2:id>
+            <con1:expr>
+              <con2:xqueryTransform>
+                <con2:resource ref="CLI/EMP/TLS/XQ_CLIEMPScoringPersonas_to_CLIDOMScoringPersonas"/>
+                <con2:param name="scoringPersonasRequest1">
+                  <con2:path>$body/scor:scoringPersonasRequest</con2:path>
+                </con2:param>
+              </con2:xqueryTransform>
+            </con1:expr>
+          </con1:assign>
+        </con:actions>
+      </con:stage>
+      <con:stage name="call_DOM">
+        <con:context/>
+        <con:actions>
+          <con1:wsCallout>
+            <con2:id>_ActionId-5355209937370491851--36f18d4e.14fd1792509.-756a</con2:id>
+            <con1:service xsi:type="ref:ProxyRef" ref="CLI/DOM/PX/CLIDOMScoringPersonas" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+            <con1:request>
+              <con1:payload>$inDOM</con1:payload>
+            </con1:request>
+            <con1:response>
+              <con1:payload>outDOM</con1:payload>
+            </con1:response>
+            <con1:requestTransform/>
+            <con1:responseTransform/>
+          </con1:wsCallout>
+          <con1:replace varName="body" contents-only="true">
+            <con2:id>_ActionId-1732571405235610517--20499658.154961c79f4.-7f47</con2:id>
+            <con1:location>
+              <con2:xpathText>.</con2:xpathText>
+            </con1:location>
+            <con1:expr>
+              <con2:xqueryTransform>
+                <con2:resource ref="CLI/EMP/TLS/XQ_CLIDOMScoringPersonas_to_CLIEMPScoringPersonas"/>
+                <con2:param name="respScoringPersonas1">
+                  <con2:path>$outDOM</con2:path>
+                </con2:param>
+              </con2:xqueryTransform>
+            </con1:expr>
+          </con1:replace>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="error" name="_onErrorHandler-5355209937370491851--36f18d4e.14fd1792509.-73ce">
+      <con:stage name="stageError">
+        <con:context>
+          <con2:userNsDecl namespace="http://osbcorp.vtr.cl/GLOBAL/EMP/ResultadoEjecucion" prefix="res"/>
+          <con2:varNsDecl namespace="http://osbcorp.vtr.cl/CLI/EMP/scoringPersonas" prefix="scor"/>
+          <con2:varNsDecl namespace="http://osbcorp.vtr.cl/CLI/EMP/scoringPersonasResp" prefix="scor1"/>
+        </con:context>
+        <con:actions>
+          <con1:replace varName="header" contents-only="true">
+            <con2:id>_ActionId-5355209937370491851--36f18d4e.14fd1792509.-7360</con2:id>
+            <con1:location>
+              <con2:xpathText>.</con2:xpathText>
+            </con1:location>
+            <con1:expr>
+              <con2:xqueryTransform>
+                <con2:resource ref="GLOBAL/EMP/TLS/generarHeaderOut"/>
+                <con2:param name="serverName">
+                  <con2:path>''</con2:path>
+                </con2:param>
+                <con2:param name="fechaReq">
+                  <con2:path>fn:current-dateTime()</con2:path>
+                </con2:param>
+              </con2:xqueryTransform>
+            </con1:expr>
+          </con1:replace>
+          <con1:replace varName="body" contents-only="true">
+            <con2:id>_ActionId-5355209937370491851--36f18d4e.14fd1792509.-7343</con2:id>
+            <con1:expr>
+              <con2:xqueryText><![CDATA[<scor:scoringPersonasResponse>
+	<scor1:respScoringPersonas>
+		<scor1:ResultadoEjecucion>
+			<res:ejecucionExitosa>{fn:false()}</res:ejecucionExitosa>
+			<res:codigoError>SYS-103</res:codigoError>
+			<res:mensaje>Error en la validacion del mensaje - EMP</res:mensaje>
+		</scor1:ResultadoEjecucion>
+	</scor1:respScoringPersonas>
+</scor:scoringPersonasResponse>]]></con2:xqueryText>
+            </con1:expr>
+          </con1:replace>
+          <con2:reply>
+            <con2:id>_ActionId-5355209937370491851--36f18d4e.14fd1792509.-7326</con2:id>
+          </con2:reply>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="response" name="PipelinePairNode1_response">
+      <con:stage name="setOuput">
+        <con:context>
+          <con2:varNsDecl namespace="http://osbcorp.vtr.cl/CLI/EMP/scoringPersonas" prefix="scor"/>
+          <con2:varNsDecl namespace="http://osbcorp.vtr.cl/CLI/EMP/scoringPersonasReq" prefix="scor1"/>
+          <con2:varNsDecl prefix="res" namespace="http://osbcorp.vtr.cl/GLOBAL/EMP/ResultadoEjecucion"/>
+          <con2:varNsDecl prefix="head" namespace="http://osbcorp.vtr.cl/GLOBAL/EMP/HeaderResponse"/>
+          <con2:varNsDecl prefix="scor2" namespace="http://osbcorp.vtr.cl/CLI/EMP/scoringPersonasResp"/>
+          <con2:varNsDecl prefix="head1" namespace="http://osbcorp.vtr.cl/GLOBAL/EMP/HeaderRequest"/>
+        </con:context>
+        <con:actions>
+          <con1:replace varName="header" contents-only="true">
+            <con2:id>_ActionId-5355209937370491851--36f18d4e.14fd1792509.-74a9</con2:id>
+            <con1:location>
+              <con2:xpathText>.</con2:xpathText>
+            </con1:location>
+            <con1:expr>
+              <con2:xqueryTransform>
+                <con2:resource ref="GLOBAL/EMP/TLS/generarHeaderOut"/>
+                <con2:param name="serverName">
+                  <con2:path>''</con2:path>
+                </con2:param>
+                <con2:param name="fechaReq">
+                  <con2:path>fn:current-dateTime()</con2:path>
+                </con2:param>
+              </con2:xqueryTransform>
+            </con1:expr>
+          </con1:replace>
+        </con:actions>
+      </con:stage>
+      <con:stage name="fin">
+        <con:context>
+          <con2:varNsDecl namespace="http://osbcorp.vtr.cl/CLI/EMP/scoringPersonas" prefix="scor"/>
+        </con:context>
+        <con:actions>
+          <con1:validate>
+            <con2:id>_ActionId-1732571405235610517--20499658.154961c79f4.-7ef0</con2:id>
+            <con1:wsdl ref="CLI/EMP/WS/CLIEMPScoringPersonas"/>
+            <con1:schemaElement xmlns:scor="http://osbcorp.vtr.cl/CLI/EMP/scoringPersonas">scor:scoringPersonasResponse</con1:schemaElement>
+            <con1:varName>body</con1:varName>
+            <con1:location>
+              <con2:xpathText>./scor:scoringPersonasResponse</con2:xpathText>
+            </con1:location>
+          </con1:validate>
+          <con1:assign varName="fechaFin">
+            <con2:id>_ActionId-5355209937370491851--36f18d4e.14fd1792509.-73cf</con2:id>
+            <con1:expr>
+              <con2:xqueryText>fn:current-dateTime()</con2:xqueryText>
+            </con1:expr>
+          </con1:assign>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:flow>
+      <con:pipeline-node name="PipelinePairNode1">
+        <con:request>PipelinePairNode1_request</con:request>
+        <con:response>PipelinePairNode1_response</con:response>
+      </con:pipeline-node>
+    </con:flow>
+  </ser:router>
+</xml-fragment>

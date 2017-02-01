@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- validarClienteExterno --><xsd:schema elementFormDefault="qualified" targetNamespace="http://osb.vtr.cl/CLI/DOM/ValidarClienteExterno" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://osb.vtr.cl/CLI/DOM/ValidarClienteExterno">
+
+    <xsd:complexType name="ValidarClienteExternoRequestType">
+    	<xsd:sequence>
+    		<xsd:element name="rut" minOccurs="1" maxOccurs="1">
+    			<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="8"/>
+						<xsd:minLength value="1"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+    		</xsd:element>
+    		<xsd:element name="digitoVerificador" minOccurs="1" maxOccurs="1">
+    			<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:length value="1"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="serie" minOccurs="1" maxOccurs="1">
+    			<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="10"/>
+						<xsd:minLength value="1"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+    	</xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

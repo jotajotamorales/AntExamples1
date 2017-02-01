@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml-fragment xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config">
+  <ser:coreEntry isProxy="true" isEnabled="true" isAutoPublish="false" isTracingEnabled="false">
+    <ser:binding type="SOAP" isSoap12="true" xsi:type="con3:SoapBindingType" xmlns:con3="http://www.bea.com/wli/sb/services/bindings/config">
+      <con3:wsdl ref="CLI/EMP/WS/CLIEMPValidarCedula"/>
+      <con3:port>
+        <con3:name>ValidarCedulaPort</con3:name>
+        <con3:namespace>http://osbcorp.vtr.cl/CLI/EMP/ValidarCedula</con3:namespace>
+      </con3:port>
+      <con3:selector type="SOAP body"/>
+    </ser:binding>
+    <ser:monitoring isEnabled="true">
+      <ser:aggregationInterval>720</ser:aggregationInterval>
+      <ser:pipelineMonitoringLevel>Pipeline</ser:pipelineMonitoringLevel>
+    </ser:monitoring>
+    <ser:reporting>true</ser:reporting>
+    <ser:logging isEnabled="true">
+      <ser:logLevel>debug</ser:logLevel>
+    </ser:logging>
+    <ser:sla-alerting isEnabled="true">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:sla-alerting>
+    <ser:pipeline-alerting isEnabled="true">
+      <ser:alertLevel>normal</ser:alertLevel>
+    </ser:pipeline-alerting>
+    <ser:ws-policy>
+      <ser:binding-mode>wsdl-policy-attachments</ser:binding-mode>
+    </ser:ws-policy>
+    <ser:throttling enabled="false">
+      <ser:capacity>0</ser:capacity>
+      <ser:maxQueueLength>0</ser:maxQueueLength>
+      <ser:timeToLive>0</ser:timeToLive>
+    </ser:throttling>
+    <ser:messageTracing enabled="false">
+      <ser:detailsLevel>Full</ser:detailsLevel>
+      <ser:maxSize>8192</ser:maxSize>
+    </ser:messageTracing>
+  </ser:coreEntry>
+  <ser:endpointConfig>
+    <tran:provider-id>http</tran:provider-id>
+    <tran:inbound>true</tran:inbound>
+    <tran:URI>
+      <env:value>validarCedula</env:value>
+    </tran:URI>
+    <tran:inbound-properties/>
+    <tran:all-headers>false</tran:all-headers>
+    <tran:provider-specific>
+      <http:inbound-properties/>
+    </tran:provider-specific>
+  </ser:endpointConfig>
+  <ser:router errorHandler="_onErrorHandler-6650554036456933212-20bdc56f.14fcca6c319.-7d52">
+    <con:pipeline type="request" name="PipelinePairNode1_request">
+      <con:stage name="inicio">
+        <con:context/>
+        <con:actions>
+          <con1:assign varName="inicio">
+            <con2:id>_ActionId-6650554036456933212-20bdc56f.14fcca6c319.-7df8</con2:id>
+            <con1:expr>
+              <con2:xqueryText>fn:current-dateTime()</con2:xqueryText>
+            </con1:expr>
+          </con1:assign>
+        </con:actions>
+      </con:stage>
+      <con:stage name="validateIN" errorHandler="_onErrorHandler-7151160366198449180-43d42cde.15309eee532.-7cdf">
+        <con:context>
+          <con2:varNsDecl namespace="http://osbcorp.vtr.cl/CLI/EMP/ValidarCedula" prefix="val"/>
+          <con2:varNsDecl namespace="http://osbcorp.vtr.cl/GLOBAL/EMP/HeaderRequest" prefix="head"/>
+        </con:context>
+        <con:actions>
+          <con1:validate>
+            <con2:id>_ActionId-6650554036456933212-20bdc56f.14fcca6c319.-7d53</con2:id>
+            <con1:schema ref="GLOBAL/EMP/WS/HeaderRequest"/>
+            <con1:schemaElement xmlns:head="http://osbcorp.vtr.cl/GLOBAL/EMP/HeaderRequest">head:HeaderRequest</con1:schemaElement>
+            <con1:varName>header</con1:varName>
+            <con1:location>
+              <con2:xpathText>./head:HeaderRequest</con2:xpathText>
+            </con1:location>
+          </con1:validate>
+          <con1:validate>
+            <con2:id>_ActionId-6650554036456933212-20bdc56f.14fcca6c319.-7de3</con2:id>
+            <con1:wsdl ref="CLI/EMP/WS/CLIEMPValidarCedula"/>
+            <con1:schemaElement xmlns:val="http://osbcorp.vtr.cl/CLI/EMP/ValidarCedula">val:ValidarCedula</con1:schemaElement>
+            <con1:varName>body</con1:varName>
+            <con1:location>
+              <con2:xpathText>./val:ValidarCedula</con2:xpathText>
+            </con1:location>
+          </con1:validate>
+        </con:actions>
+      </con:stage>
+      <con:stage name="inputDOM">
+        <con:context>
+          <con2:varNsDecl namespace="http://osbcorp.vtr.cl/CLI/EMP/ValidarCedula" prefix="val"/>
+        </con:context>
+        <con:actions>
+          <con1:assign varName="inDOM">
+            <con2:id>_ActionId-6650554036456933212-20bdc56f.14fcca6c319.-7dd1</con2:id>
+            <con1:expr>
+              <con2:xqueryTransform>
+                <con2:resource ref="CLI/EMP/TLS/XQ_CLIEMPValidarCedula_to_CLIDOMValidarCedula"/>
+                <con2:param name="validarCedula1">
+                  <con2:path>$body/val:ValidarCedula</con2:path>
+                </con2:param>
+              </con2:xqueryTransform>
+            </con1:expr>
+          </con1:assign>
+        </con:actions>
+      </con:stage>
+      <con:stage name="call_DOM" errorHandler="_onErrorHandler-7151160366198449180-43d42cde.15309eee532.-7dba">
+        <con:context/>
+        <con:actions>
+          <con1:wsCallout>
+            <con2:id>_ActionId-6650554036456933212-20bdc56f.14fcca6c319.-7db5</con2:id>
+            <con1:service xsi:type="ref:ProxyRef" ref="CLI/DOM/PX/CLIDOMValidarCedula" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+            <con1:request>
+              <con1:payload>$inDOM</con1:payload>
+            </con1:request>
+            <con1:response>
+              <con1:payload>outDOM</con1:payload>
+            </con1:response>
+            <con1:requestTransform/>
+            <con1:responseTransform/>
+          </con1:wsCallout>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="response" name="PipelinePairNode1_response">
+      <con:stage name="outEMP">
+        <con:context/>
+        <con:actions>
+          <con1:assign varName="bodySalida">
+            <con2:id>_ActionId-6650554036456933212-20bdc56f.14fcca6c319.-7da0</con2:id>
+            <con1:expr>
+              <con2:xqueryTransform>
+                <con2:resource ref="CLI/EMP/TLS/XQ_CLIDOMValidarCedula_to_CLIEMPValidarCedula"/>
+                <con2:param name="respValidarEstadoCedula1">
+                  <con2:path>$outDOM</con2:path>
+                </con2:param>
+              </con2:xqueryTransform>
+            </con1:expr>
+          </con1:assign>
+          <con1:replace varName="body" contents-only="true">
+            <con2:id>_ActionId-6650554036456933212-20bdc56f.14fcca6c319.-7d8e</con2:id>
+            <con1:location>
+              <con2:xpathText>.</con2:xpathText>
+            </con1:location>
+            <con1:expr>
+              <con2:xqueryText>$bodySalida</con2:xqueryText>
+            </con1:expr>
+          </con1:replace>
+          <con1:replace varName="header" contents-only="true">
+            <con2:id>_ActionId-6650554036456933212-20bdc56f.14fcca6c319.-7d77</con2:id>
+            <con1:expr>
+              <con2:xqueryTransform>
+                <con2:resource ref="GLOBAL/EMP/TLS/generarHeaderOut"/>
+                <con2:param name="serverName">
+                  <con2:path>""</con2:path>
+                </con2:param>
+                <con2:param name="fechaReq">
+                  <con2:path>$inicio</con2:path>
+                </con2:param>
+              </con2:xqueryTransform>
+            </con1:expr>
+          </con1:replace>
+        </con:actions>
+      </con:stage>
+      <con:stage name="validateOUT">
+        <con:context>
+          <con2:varNsDecl namespace="http://osbcorp.vtr.cl/CLI/EMP/ValidarCedula" prefix="val"/>
+        </con:context>
+        <con:actions>
+          <con1:validate>
+            <con2:id>_ActionId-6650554036456933212-20bdc56f.14fcca6c319.-7d85</con2:id>
+            <con1:wsdl ref="CLI/EMP/WS/CLIEMPValidarCedula"/>
+            <con1:schemaElement xmlns:val="http://osbcorp.vtr.cl/CLI/EMP/ValidarCedula">val:ValidarCedulaResponse</con1:schemaElement>
+            <con1:varName>body</con1:varName>
+            <con1:location>
+              <con2:xpathText>./val:ValidarCedulaResponse</con2:xpathText>
+            </con1:location>
+          </con1:validate>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="error" name="_onErrorHandler-6650554036456933212-20bdc56f.14fcca6c319.-7d52">
+      <con:stage name="stage1">
+        <con:context>
+          <con2:varNsDecl namespace="http://osbcorp.vtr.cl/CLI/EMP/ValidarCedula" prefix="val"/>
+          <con2:varNsDecl namespace="http://osbcorp.vtr.cl/GLOBAL/EMP/ResultadoEjecucion" prefix="res"/>
+        </con:context>
+        <con:actions>
+          <con1:replace varName="body" contents-only="true">
+            <con2:id>_ActionId-6650554036456933212-20bdc56f.14fcca6c319.-7d1b</con2:id>
+            <con1:expr>
+              <con2:xqueryText><![CDATA[<val:ValidarCedulaResponse>
+<val:ResultadoEjecucion>
+<res:ejecucionExitosa>{fn:false()}</res:ejecucionExitosa>
+<res:codigoError>{fn:substring(data($fault/ctx:errorCode/text()),1,10)}</res:codigoError>
+<res:mensaje>{$fault/ctx:reason/text()}</res:mensaje>
+</val:ResultadoEjecucion>
+</val:ValidarCedulaResponse>]]></con2:xqueryText>
+            </con1:expr>
+          </con1:replace>
+          <con1:replace varName="header" contents-only="true">
+            <con2:id>_ActionId-6650554036456933212-20bdc56f.14fcca6c319.-7d41</con2:id>
+            <con1:expr>
+              <con2:xqueryTransform>
+                <con2:resource ref="GLOBAL/EMP/TLS/generarHeaderOut"/>
+                <con2:param name="serverName">
+                  <con2:path>""</con2:path>
+                </con2:param>
+                <con2:param name="fechaReq">
+                  <con2:path>$inicio</con2:path>
+                </con2:param>
+              </con2:xqueryTransform>
+            </con1:expr>
+          </con1:replace>
+          <con1:validate>
+            <con2:id>_ActionId-6650554036456933212-20bdc56f.14fcca6c319.-7cfd</con2:id>
+            <con1:wsdl ref="CLI/EMP/WS/CLIEMPValidarCedula"/>
+            <con1:schemaElement xmlns:val="http://osbcorp.vtr.cl/CLI/EMP/ValidarCedula">val:ValidarCedulaResponse</con1:schemaElement>
+            <con1:varName>body</con1:varName>
+            <con1:location>
+              <con2:xpathText>./val:ValidarCedulaResponse</con2:xpathText>
+            </con1:location>
+          </con1:validate>
+          <con2:reply>
+            <con2:id>_ActionId-6650554036456933212-20bdc56f.14fcca6c319.-7cf0</con2:id>
+          </con2:reply>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="error" name="_onErrorHandler-7151160366198449180-43d42cde.15309eee532.-7dba">
+      <con:stage name="stage1">
+        <con:context/>
+        <con:actions>
+          <con1:Error>
+            <con2:id>_ActionId-7151160366198449180-43d42cde.15309eee532.-7ce0</con2:id>
+            <con1:errCode>SYS-001</con1:errCode>
+            <con1:message>Problemas de conexión con capa DOM - EMP</con1:message>
+          </con1:Error>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:pipeline type="error" name="_onErrorHandler-7151160366198449180-43d42cde.15309eee532.-7cdf">
+      <con:stage name="stage1">
+        <con:context/>
+        <con:actions>
+          <con1:Error>
+            <con2:id>_ActionId-7151160366198449180-43d42cde.15309eee532.-7c71</con2:id>
+            <con1:errCode>NEG-103</con1:errCode>
+            <con1:message>Error al validar datos de entrada en el servicio - EMP</con1:message>
+          </con1:Error>
+        </con:actions>
+      </con:stage>
+    </con:pipeline>
+    <con:flow>
+      <con:pipeline-node name="PipelinePairNode1">
+        <con:request>PipelinePairNode1_request</con:request>
+        <con:response>PipelinePairNode1_response</con:response>
+      </con:pipeline-node>
+    </con:flow>
+  </ser:router>
+</xml-fragment>

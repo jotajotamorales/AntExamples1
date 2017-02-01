@@ -1,0 +1,135 @@
+<!-- validarClienteExterno --><xsd:schema elementFormDefault="qualified" targetNamespace="http://osb.vtr.cl/CLI/DOM/ValidarClienteExterno" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://osb.vtr.cl/CLI/DOM/ValidarClienteExterno" xmlns:ef="http://osb.vtr.cl/GLOBAL/EMP/ResultadoEjecucion">
+	
+	<xsd:import namespace="http://osb.vtr.cl/GLOBAL/EMP/ResultadoEjecucion" schemaLocation="XMLSchema_-2036068250.xsd"/>
+    
+    <xsd:complexType name="ValidarClienteExternoResponseType">
+    	<xsd:sequence>
+    		<xsd:element name="informacionVigenciaCedula" type="tns:informacionVigenciaCedula" minOccurs="0" maxOccurs="1"/>
+    		<xsd:element name="informacionCliente" type="tns:DatosPersona" minOccurs="1" maxOccurs="1"/>
+    		<xsd:element name="resultadoEjecucion" type="ef:ResultadoEjecucionType" minOccurs="1" maxOccurs="1"/>
+    	</xsd:sequence>
+    </xsd:complexType>
+    
+     <xsd:complexType name="informacionVigenciaCedula">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Estado" type="xsd:string"/>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Razon" type="xsd:string"/>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Fecha" type="xsd:string"/>
+          <xsd:element maxOccurs="1" minOccurs="1" name="FuenteVigenciaCedula" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      
+      
+      <xsd:complexType name="DatosPersonaNatural">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Nombre">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element maxOccurs="1" minOccurs="1" name="FuenteNombre" type="xsd:string"/>
+                <xsd:element maxOccurs="1" minOccurs="1" name="Nombres" type="xsd:string"/>
+                <xsd:element maxOccurs="1" minOccurs="1" name="ApellidoPaterno" type="xsd:string"/>
+                <xsd:element maxOccurs="1" minOccurs="1" name="ApellidoMaterno" type="xsd:string"/>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Actividad">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element maxOccurs="1" minOccurs="1" name="FuenteActividad" type="xsd:string"/>
+                <xsd:element maxOccurs="1" minOccurs="1" name="Actividad" type="xsd:string"/>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element maxOccurs="1" minOccurs="1" name="FechaNacimiento">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element maxOccurs="1" minOccurs="1" name="FuenteFechaNacimiento" type="xsd:string"/>
+                <xsd:element maxOccurs="1" name="FechaNacimiento" nillable="true" type="xsd:date"/>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Edad">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element maxOccurs="1" minOccurs="1" name="FuenteEdad" type="xsd:string"/>
+                <xsd:element maxOccurs="1" minOccurs="1" name="Edad" type="xsd:integer"/>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element maxOccurs="1" minOccurs="1" name="FechaDefuncion">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element maxOccurs="1" minOccurs="1" name="FuenteFechaDefuncion" type="xsd:string"/>
+                <xsd:element maxOccurs="1" name="FechaDefuncion" nillable="true" type="xsd:date"/>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Sexo">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element maxOccurs="1" minOccurs="1" name="FuenteSexo" type="xsd:string"/>
+                <xsd:element maxOccurs="1" minOccurs="1" name="Sexo" type="xsd:string"/>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Nacionalidad">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element maxOccurs="1" minOccurs="1" name="FuenteNacionalidad" type="xsd:string"/>
+                <xsd:element maxOccurs="1" minOccurs="1" name="Nacionalidad" type="xsd:string"/>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element maxOccurs="1" minOccurs="1" name="EstadoCivil">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element maxOccurs="1" minOccurs="1" name="FuenteEstadoCivil" type="xsd:string"/>
+                <xsd:element maxOccurs="1" minOccurs="1" name="EstadoCivil" type="xsd:string"/>
+                <xsd:element maxOccurs="1" minOccurs="1" name="FechaMatrimonio" nillable="true" type="xsd:string"/>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      
+      <xsd:complexType name="DatosPersonaJuridica">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" name="RazonSocial">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element maxOccurs="1" minOccurs="1" name="FuenteRazonSocial" type="xsd:string"/>
+                <xsd:element maxOccurs="1" minOccurs="1" name="RazonSocial" type="xsd:string"/>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Giro">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element maxOccurs="1" minOccurs="1" name="FuenteGiro" type="xsd:string"/>
+                <xsd:element maxOccurs="1" minOccurs="1" name="Giro" type="xsd:string"/>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      
+      <xsd:complexType name="Domicilio">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" name="FuenteDomicilio" type="xsd:string"/>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Calle" type="xsd:string"/>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Comuna" type="xsd:string"/>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Ciudad" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      
+      <xsd:complexType name="DatosPersona">
+        <xsd:sequence>
+          <xsd:element maxOccurs="1" minOccurs="1" name="RUT" type="xsd:string"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="PersonaNatural" type="tns:DatosPersonaNatural"/>
+          <xsd:element maxOccurs="1" minOccurs="0" name="PersonaJuridica" type="tns:DatosPersonaJuridica"/>
+          <xsd:element maxOccurs="1" minOccurs="1" name="Domicilio" type="tns:Domicilio"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      
+      
+</xsd:schema>
